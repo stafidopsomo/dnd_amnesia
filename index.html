@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Character Actions</title>
+<!-- Use a relative path for the stylesheet -->
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <h1>Character: <span id="charName"></span></h1>
+  <p><strong>Race:</strong> <span id="charRace"></span></p>
+
+  <div class="actions">
+    <button id="moveBtn">Move</button>
+    <button id="perceptionBtn">Perception</button>
+    <div class="attack-section">
+      <select id="weaponSelect"></select>
+      <button id="attackBtn">Attack</button>
+    </div>
+  </div>
+
+  <div id="actionResults"></div>
+
+  <!-- Use a relative path for the script -->
+  <script src="./script.js"></script>
+</body>
+</html>
