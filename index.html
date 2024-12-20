@@ -4,25 +4,35 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Character Actions</title>
-<!-- Use a relative path for the stylesheet -->
-<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Character: <span id="charName"></span></h1>
-  <p><strong>Race:</strong> <span id="charRace"></span></p>
+  <div class="container">
+    <header>
+      <h1>Heroic Adventurer</h1>
+      <p><strong>Name:</strong> <span id="charName"></span> &nbsp;|&nbsp; <strong>Race:</strong> <span id="charRace"></span></p>
+    </header>
 
-  <div class="actions">
-    <button id="moveBtn">Move</button>
-    <button id="perceptionBtn">Perception</button>
-    <div class="attack-section">
-      <select id="weaponSelect"></select>
-      <button id="attackBtn">Attack</button>
-    </div>
+    <section class="actions-section">
+      <h2>Actions</h2>
+      <div class="actions">
+        <button id="moveBtn" class="action-btn move-btn">Move</button>
+        <button id="perceptionBtn" class="action-btn perception-btn">Perception</button>
+        <div class="attack-section">
+          <select id="weaponSelect" class="weapon-select"></select>
+          <button id="attackBtn" class="action-btn attack-btn">Attack</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="results-section">
+      <h2>Action Results</h2>
+      <div id="actionResults"></div>
+    </section>
   </div>
-
-  <div id="actionResults"></div>
-
-  <!-- Use a relative path for the script -->
-  <script src="./script.js"></script>
+  
+  <script src="script.js"></script>
 </body>
 </html>
