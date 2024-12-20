@@ -6,14 +6,6 @@ let guessLimit = 0;
 let moveUsed = false;
 let actionUsed = false; // for either attack or perception in this turn
 
-// Track discovered info
-let knownInfo = {
-  speed: null,
-  armor: null,
-  strengthLevel: null,
-  weapons: null,
-};
-
 document.addEventListener("DOMContentLoaded", async () => {
   // Fetch character data
   characterData = await fetchCharacterData();
@@ -43,6 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Event listeners for actions
   document.getElementById('moveBtn').addEventListener('click', handleMove);
   document.getElementById('perceptionBtn').addEventListener('click', handlePerception);
+  document.getElementById('investigationBtn').addEventListener('click', handleInvestigation);
   document.getElementById('attackBtn').addEventListener('click', handleAttack);
 
   // Guess and End Turn events
@@ -55,38 +48,7 @@ async function fetchCharacterData() {
   return response.json();
 }
 
-function updateKnownInfoPanel() {
-  const infoDiv = document.getElementById('infoContent');
 
-  // Clear the panel first
-  infoDiv.innerHTML = '';
-
-  let hasInfo = false;
-
-  if (knownInfo.speed) {
-    infoDiv.innerHTML += `<p><strong>Speed:</strong> ${knownInfo.speed} ft</p>`;
-    hasInfo = true;
-  }
-
-  if (knownInfo.armor) {
-    infoDiv.innerHTML += `<p><strong>Armor:</strong> ${knownInfo.armor}</p>`;
-    hasInfo = true;
-  }
-
-  if (knownInfo.weapons) {
-    infoDiv.innerHTML += `<p><strong>Weapons:</strong> ${knownInfo.weapons}</p>`;
-    hasInfo = true;
-  }
-
-  if (knownInfo.strengthLevel) {
-    infoDiv.innerHTML += `<p><strong>Strength Level:</strong> ${knownInfo.strengthLevel}</p>`;
-    hasInfo = true;
-  }
-
-  if (!hasInfo) {
-    infoDiv.innerHTML = `<p><em>No information discovered yet.</em></p>`;
-  }
-}
 
 // GUESSING LOGIC
 function handleGuess() {

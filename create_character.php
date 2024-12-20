@@ -97,6 +97,7 @@ $character = [
     "abilities" => $abilities,
     "proficiency_bonus" => $proficiency_bonus,
     "perception" => modifier($abilities['wis']),
+    "investigation" => modifier($abilities['int']),
     "Basic_Score" => $basic_score,
     "saving_throws" => [
         "strength" => modifier($abilities['str']) + $proficiency_bonus,
