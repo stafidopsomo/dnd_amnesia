@@ -1,6 +1,14 @@
 let characterData = null;
 let hasAttackedThisTurn = false;
 
+// Track discovered info
+let knownInfo = {
+  speed: null,
+  armor: null,
+  strengthLevel: null,
+  weapons: null,
+};
+
 document.addEventListener("DOMContentLoaded", async () => {
   // Fetch character data
   characterData = await fetchCharacterData();
@@ -18,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     weaponSelect.appendChild(option);
   });
 
-  // Add event listeners
+  // Event listeners
   document.getElementById('moveBtn').addEventListener('click', handleMove);
   document.getElementById('perceptionBtn').addEventListener('click', handlePerception);
   document.getElementById('attackBtn').addEventListener('click', handleAttack);
@@ -31,16 +39,28 @@ async function fetchCharacterData() {
 
 function handleMove() {
   const resultDiv = document.getElementById('actionResults');
-  resultDiv.innerText = "";
+
+  // If already pressed once, do nothing
+  const moveBtn = document.getElementById('moveBtn');
+  if (moveBtn.disabled) return;
 
   const speed = characterData.speed;
-  const flavorText = `You stride forward with confident steps, covering ${speed} feet in a single move.`;
-  resultDiv.innerText = flavorText;
+  const flavorText = `You stride forward with confident steps, covering ${speed} feet in a single move.\n`;
+  resultDiv.innerText += flavorText;
+
+  // Record known info
+  knownInfo.speed = speed;
+  updateKnownInfoPanel();
+
+  // Disable the button
+  moveBtn.disabled = true;
 }
 
 function handlePerception() {
   const resultDiv = document.getElementById('actionResults');
-  resultDiv.innerText = "";
+
+  const perceptionBtn = document.getElementById('perceptionBtn');
+  if (perceptionBtn.disabled) return;
 
   const roll = rollDie(20);
   const perceptionTotal = roll + characterData.perception;
@@ -58,37 +78,42 @@ function handlePerception() {
     });
 
     const strScore = characterData.abilities.str;
-    let strLevel = "";
-    if (strScore < 10) {
-      strLevel = "low";
-    } else if (strScore <= 14) {
-      strLevel = "mid";
-    } else {
-      strLevel = "high";
-    }
+    let strLevel = (strScore < 10) ? "low" : (strScore <= 14) ? "mid" : "high";
     output += `Your Strength score seems ${strLevel}.\n`;
+
+    // Record known info
+    knownInfo.armor = `${armorName} (${armorDesc})`;
+    knownInfo.weapons = characterData.weapons.map(w => w.name).join(', ');
+    knownInfo.strengthLevel = strLevel;
+    updateKnownInfoPanel();
+
   } else {
     output += "Fail! You don't notice anything special.\n";
   }
 
-  resultDiv.innerText = output;
+  resultDiv.innerText += output;
+
+  // Disable the button after one use
+  perceptionBtn.disabled = true;
 }
 
 function handleAttack() {
   const resultDiv = document.getElementById('actionResults');
-  resultDiv.innerText = "";
 
   if (hasAttackedThisTurn) {
-    resultDiv.innerText = "You have already attacked this turn!";
+    // Already attacked
     return;
   }
+
+  const attackBtn = document.getElementById('attackBtn');
+  if (attackBtn.disabled) return;
 
   const weaponSelect = document.getElementById('weaponSelect');
   const selectedWeaponName = weaponSelect.value;
   const chosenWeapon = characterData.weapons.find(w => w.name === selectedWeaponName);
 
   if (!chosenWeapon) {
-    resultDiv.innerText = "Invalid weapon choice.";
+    resultDiv.innerText += "Invalid weapon choice.\n";
     return;
   }
 
@@ -100,9 +125,8 @@ function handleAttack() {
   // Check if Extra Attack feature is present
   const hasExtraAttack = characterData.features_and_traits.some(f => f.name.toLowerCase() === "extra attack");
   console.log(`Has extra attack feature: ${hasExtraAttack}`);
-  
-  let numberOfAttacks = hasExtraAttack ? 2 : 1;
 
+  let numberOfAttacks = hasExtraAttack ? 2 : 1;
   let output = `You attack with ${chosenWeapon.name}:\n`;
 
   for (let i = 1; i <= numberOfAttacks; i++) {
@@ -124,8 +148,42 @@ function handleAttack() {
     }
   }
 
-  resultDiv.innerText = output;
+  resultDiv.innerText += output;
   hasAttackedThisTurn = true; 
+  attackBtn.disabled = true; // Disable attack after use
+}
+
+function updateKnownInfoPanel() {
+  const infoDiv = document.getElementById('infoContent');
+
+  // Clear the panel first
+  infoDiv.innerHTML = '';
+
+  let hasInfo = false;
+
+  if (knownInfo.speed) {
+    infoDiv.innerHTML += `<p><strong>Speed:</strong> ${knownInfo.speed} ft</p>`;
+    hasInfo = true;
+  }
+
+  if (knownInfo.armor) {
+    infoDiv.innerHTML += `<p><strong>Armor:</strong> ${knownInfo.armor}</p>`;
+    hasInfo = true;
+  }
+
+  if (knownInfo.weapons) {
+    infoDiv.innerHTML += `<p><strong>Weapons:</strong> ${knownInfo.weapons}</p>`;
+    hasInfo = true;
+  }
+
+  if (knownInfo.strengthLevel) {
+    infoDiv.innerHTML += `<p><strong>Strength Level:</strong> ${knownInfo.strengthLevel}</p>`;
+    hasInfo = true;
+  }
+
+  if (!hasInfo) {
+    infoDiv.innerHTML = `<p><em>No information discovered yet.</em></p>`;
+  }
 }
 
 // Utility Functions
