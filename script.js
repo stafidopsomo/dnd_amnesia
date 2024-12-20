@@ -39,28 +39,19 @@ async function fetchCharacterData() {
 
 function handleMove() {
   const resultDiv = document.getElementById('actionResults');
-
-  // If already pressed once, do nothing
-  const moveBtn = document.getElementById('moveBtn');
-  if (moveBtn.disabled) return;
-
   const speed = characterData.speed;
   const flavorText = `You stride forward with confident steps, covering ${speed} feet in a single move.\n`;
   resultDiv.innerText += flavorText;
 
-  // Record known info
-  knownInfo.speed = speed;
-  updateKnownInfoPanel();
-
-  // Disable the button
-  moveBtn.disabled = true;
+  // Record known info if not already recorded
+  if (!knownInfo.speed) {
+    knownInfo.speed = speed;
+    updateKnownInfoPanel();
+  }
 }
 
 function handlePerception() {
   const resultDiv = document.getElementById('actionResults');
-
-  const perceptionBtn = document.getElementById('perceptionBtn');
-  if (perceptionBtn.disabled) return;
 
   const roll = rollDie(20);
   const perceptionTotal = roll + characterData.perception;
@@ -82,9 +73,15 @@ function handlePerception() {
     output += `Your Strength score seems ${strLevel}.\n`;
 
     // Record known info
-    knownInfo.armor = `${armorName} (${armorDesc})`;
-    knownInfo.weapons = characterData.weapons.map(w => w.name).join(', ');
-    knownInfo.strengthLevel = strLevel;
+    if (!knownInfo.armor) {
+      knownInfo.armor = `${armorName} (${armorDesc})`;
+    }
+    if (!knownInfo.weapons) {
+      knownInfo.weapons = characterData.weapons.map(w => w.name).join(', ');
+    }
+    if (!knownInfo.strengthLevel) {
+      knownInfo.strengthLevel = strLevel;
+    }
     updateKnownInfoPanel();
 
   } else {
@@ -92,21 +89,15 @@ function handlePerception() {
   }
 
   resultDiv.innerText += output;
-
-  // Disable the button after one use
-  perceptionBtn.disabled = true;
 }
 
 function handleAttack() {
   const resultDiv = document.getElementById('actionResults');
 
   if (hasAttackedThisTurn) {
-    // Already attacked
+    resultDiv.innerText += "You have already attacked this turn!\n";
     return;
   }
-
-  const attackBtn = document.getElementById('attackBtn');
-  if (attackBtn.disabled) return;
 
   const weaponSelect = document.getElementById('weaponSelect');
   const selectedWeaponName = weaponSelect.value;
@@ -149,8 +140,7 @@ function handleAttack() {
   }
 
   resultDiv.innerText += output;
-  hasAttackedThisTurn = true; 
-  attackBtn.disabled = true; // Disable attack after use
+  hasAttackedThisTurn = true;
 }
 
 function updateKnownInfoPanel() {
