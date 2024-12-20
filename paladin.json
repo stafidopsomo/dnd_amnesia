@@ -1,0 +1,23 @@
+{
+    "subclasses": ["Devotion", "Ancient"],
+    "weapons": [
+        {"name": "Longsword", "die": "d8"},
+        {"name": "Javelin", "die": "d6"}
+    ],
+    "armor": {
+        "name": "Chain Mail",
+        "description": "AC = 16"
+    },
+    "features": [
+        {
+            "name": "Divine Smite",
+            "description": "Extra radiant damage on a hit by expending spell slots."
+        },
+        {
+            "name": "Lay on Hands",
+            "description": "Heal a target by using your pool of healing power."
+        }
+    ],
+    "speed_bonus": 0,
+    "hit_die": 10
+}
