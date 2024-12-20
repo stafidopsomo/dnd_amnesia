@@ -39,6 +39,26 @@
       <div class="info-content" id="infoContent">
         <p><em>No information discovered yet.</em></p>
       </div>
+
+      <div class="guess-section">
+        <h3>Make a Guess</h3>
+        <label for="classGuess">Guess Class:</label>
+        <select id="classGuess">
+          <option value="Barbarian">Barbarian</option>
+          <option value="Paladin">Paladin</option>
+          <option value="Rogue">Rogue</option>
+        </select>
+
+        <label for="strModGuess">Guess Strength Modifier:</label>
+        <input type="number" id="strModGuess" placeholder="e.g. 2" />
+
+        <button id="guessBtn" class="guess-btn">Guess</button>
+
+        <h3>Your Guesses</h3>
+        <div id="guessResults" class="guess-results">
+          <p><em>No guesses yet.</em></p>
+        </div>
+      </div>
     </aside>
   </div>
   

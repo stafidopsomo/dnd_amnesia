@@ -74,25 +74,20 @@ header p {
   background: linear-gradient(135deg, #7e57c2, #ab47bc);
   color: #fff;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s, opacity 0.3s;
+  transition: background 0.3s, transform 0.2s;
   box-shadow: 0 3px 10px rgba(0,0,0,0.15);
 }
 
-.action-btn:hover:enabled {
+.action-btn:hover {
   background: linear-gradient(135deg, #6a1b9a, #8e24aa);
   transform: translateY(-2px);
-}
-
-.action-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
 }
 
 .move-btn {
   background: linear-gradient(135deg, #42a5f5, #5c6bc0);
 }
 
-.move-btn:hover:enabled {
+.move-btn:hover {
   background: linear-gradient(135deg, #1e88e5, #3949ab);
 }
 
@@ -100,7 +95,7 @@ header p {
   background: linear-gradient(135deg, #66bb6a, #9ccc65);
 }
 
-.perception-btn:hover:enabled {
+.perception-btn:hover {
   background: linear-gradient(135deg, #43a047, #7cb342);
 }
 
@@ -108,7 +103,7 @@ header p {
   background: linear-gradient(135deg, #ef5350, #ec407a);
 }
 
-.attack-btn:hover:enabled {
+.attack-btn:hover {
   background: linear-gradient(135deg, #e53935, #d81b60);
 }
 
@@ -176,4 +171,81 @@ strong {
 .info-content p {
   margin: 0.5em 0;
   line-height: 1.4;
+}
+
+/* Guess Section Styles */
+.guess-section {
+  margin-top: 20px;
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+}
+
+.guess-section h3 {
+  font-size: 1.2rem;
+  color: #5e35b1;
+  margin-bottom: 10px;
+}
+
+.guess-section label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: 500;
+}
+
+.guess-section select, 
+.guess-section input {
+  width: 100%;
+  padding: 8px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.guess-section select:focus, 
+.guess-section input:focus {
+  outline: none;
+  border-color: #999;
+}
+
+.guess-btn {
+  margin-top: 15px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #7e57c2, #ab47bc);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+.guess-btn:hover {
+  background: linear-gradient(135deg, #6a1b9a, #8e24aa);
+  transform: translateY(-2px);
+}
+
+.guess-results {
+  margin-top: 15px;
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.guess-results p {
+  margin: 0.5em 0;
+  line-height: 1.4;
+  font-size: 0.95rem;
+}
+
+.correct {
+  color: green;
+  font-weight: 700;
+}
+
+.incorrect {
+  color: red;
+  font-weight: 700;
 }

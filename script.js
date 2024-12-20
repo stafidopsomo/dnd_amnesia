@@ -13,6 +13,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Fetch character data
   characterData = await fetchCharacterData();
 
+  // Console logs with requested info
+  console.log("Class: " + characterData.class);
+  console.log("Subclass: " + characterData.subclass);
+  console.log("Str Score: " + characterData.abilities.str + ", Dex Score: " + characterData.abilities.dex);
+  const featureNames = characterData.features_and_traits.map(f => f.name);
+  console.log("Features and Traits: " + featureNames.join(", "));
+  const hasExtraAttack = characterData.features_and_traits.some(f => f.name.toLowerCase() === "extra attack");
+  console.log("Has extra attack feature: " + hasExtraAttack);
+
   // Populate basic info
   document.getElementById('charName').innerText = characterData.name;
   document.getElementById('charRace').innerText = characterData.race;
@@ -26,10 +35,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     weaponSelect.appendChild(option);
   });
 
-  // Event listeners
+  // Event listeners for actions
   document.getElementById('moveBtn').addEventListener('click', handleMove);
   document.getElementById('perceptionBtn').addEventListener('click', handlePerception);
   document.getElementById('attackBtn').addEventListener('click', handleAttack);
+
+  // Event listener for guessing
+  document.getElementById('guessBtn').addEventListener('click', handleGuess);
 });
 
 async function fetchCharacterData() {
@@ -174,6 +186,56 @@ function updateKnownInfoPanel() {
   if (!hasInfo) {
     infoDiv.innerHTML = `<p><em>No information discovered yet.</em></p>`;
   }
+}
+
+// GUESSING LOGIC
+function handleGuess() {
+  const classGuess = document.getElementById('classGuess').value;
+  const strModGuessInput = document.getElementById('strModGuess');
+  const strModGuess = parseInt(strModGuessInput.value, 10);
+
+  const actualClass = characterData.class; 
+  const actualStrMod = abilityScoreModifier(characterData.abilities.str);
+
+  let classCorrect = (classGuess === actualClass);
+  let strModCorrect = (strModGuess === actualStrMod);
+
+  // If both correct, alert congratulations
+  if (classCorrect && strModCorrect) {
+    alert("Congratulations!");
+  } else {
+    // If incorrect, append a new line in guessResults
+    const guessResultsDiv = document.getElementById('guessResults');
+    if (guessResultsDiv.querySelector('em')) {
+      guessResultsDiv.innerHTML = ''; // remove 'No guesses yet'
+    }
+
+    let classResultSpan = classCorrect ? 
+      `<span class="correct">${classGuess}</span>` : 
+      `<span class="incorrect">${classGuess}</span>`;
+
+    let strModResultSpan = '';
+    if (strModCorrect) {
+      strModResultSpan = `<span class="correct">${strModGuess}</span>`;
+    } else {
+      // Incorrect guess. Show arrow
+      let arrow = '';
+      if (Number.isFinite(strModGuess)) {
+        if (strModGuess < actualStrMod) {
+          arrow = ' ↑';
+        } else if (strModGuess > actualStrMod) {
+          arrow = ' ↓';
+        }
+      }
+      strModResultSpan = `<span class="incorrect">${isNaN(strModGuess) ? '?' : strModGuess}${arrow}</span>`;
+    }
+
+    const guessLine = `<p>Class Guess: ${classResultSpan} | Str Mod Guess: ${strModResultSpan}</p>`;
+    guessResultsDiv.innerHTML += guessLine;
+  }
+
+  // Clear the strength modifier input for next guess
+  strModGuessInput.value = '';
 }
 
 // Utility Functions
