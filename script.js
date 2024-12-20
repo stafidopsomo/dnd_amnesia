@@ -94,8 +94,8 @@ function handlePerception() {
   const roll = rollDie(20);
   const perceptionTotal = roll + characterData.perception;
 
-  let output = `Turn ${turnNumber}: You roll a d20 for Perception: ${roll} + ${characterData.perception} = ${perceptionTotal}\n`;
-  if (perceptionTotal > 15) {
+  let output = `Turn ${turnNumber}: You roll a d20 for Perception: ${roll} + ??? = ???\n`;
+  if (perceptionTotal > 10) {
     output += "Success! You spot some details:\n";
     const armorName = characterData.armor.name;
     const armorDesc = characterData.armor.description;
@@ -245,7 +245,7 @@ function handleGuess() {
   let strModCorrect = (strModGuess === actualStrMod);
 
   // Use up one guess attempt
-  guessLimit--;
+  guessLimit++;
 
   // If both correct, alert congratulations
   if (classCorrect && strModCorrect) {
@@ -279,6 +279,7 @@ function handleGuess() {
 
     const guessLine = `<p>Class Guess: ${classResultSpan} | Str Mod Guess: ${strModResultSpan}</p>`;
     guessResultsDiv.innerHTML += guessLine;
+    document.getElementById('guessesCount').innerHTML = `<p><em>Number of guesses: ${guessLimit}</em></p>`;
   }
 
   // Clear the strength modifier input for next guess
@@ -294,7 +295,7 @@ function handleEndTurn() {
   actionUsed = false;
 
   const resultDiv = document.getElementById('actionResults');
-  resultDiv.innerText += `--- End of Turn ${turnNumber - 1}. Beginning Turn ${turnNumber}. You have ${guessLimit} guess(es) now. ---\n`;
+  document.getElementById('guessesCount').innerHTML = `<p><em>Number of guesses: ${guessLimit}</em></p>`;
 }
 
 // Utility Functions
