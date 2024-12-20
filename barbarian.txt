@@ -1,0 +1,72 @@
+{
+  "name": "Thrag Ironfist",
+  "class": "Barbarian",
+  "subclass": "Path of the Berserker",
+  "level": 5,
+  "race": "Human",
+  "abilities": {
+    "str": 18,
+    "dex": 14,
+    "con": 16,
+    "int": 8,
+    "wis": 10,
+    "cha": 12
+  },
+  "proficiency_bonus": 3,
+  "saving_throws": {
+    "strength": 6,
+    "constitution": 6
+  },
+  "skills": {
+    "athletics": 6,
+    "intimidation": 3,
+    "survival": 2,
+    "perception": 2
+  },
+  "armor_class": 15,
+  "initiative": 2,
+  "speed": 40,
+  "hit_points": 58,
+  "weapons": [
+    {
+      "name": "Greataxe"
+    },
+    {
+      "name": "Handaxe"
+    },
+    {
+      "name": "Javelin"
+    }
+  ],
+  "armor": {
+    "name": "Unarmored Defense",
+    "description": "AC = 10 + Dex modifier + Con modifier (15 total)"
+  },
+  "features_and_traits": [
+    {
+      "name": "Rage",
+      "uses": 4,
+      "description": "Advantage on Strength checks and saving throws, +2 melee damage with Strength weapons, resistance to bludgeoning, piercing, and slashing damage."
+    },
+    {
+      "name": "Frenzy",
+      "description": "When raging, you can make a single melee weapon attack as a bonus action on each of your turns."
+    },
+    {
+      "name": "Reckless Attack",
+      "description": "You can throw aside all concern for defense to attack with fierce desperation. Gain advantage on melee weapon attack rolls using Strength during your turn, but attack rolls against you have advantage until your next turn."
+    },
+    {
+      "name": "Danger Sense",
+      "description": "You have advantage on Dexterity saving throws against effects you can see, such as traps and spells."
+    },
+    {
+      "name": "Extra Attack",
+      "description": "You can attack twice, instead of once, whenever you take the Attack action on your turn."
+    },
+    {
+      "name": "Fast Movement",
+      "description": "Your speed increases by 10 feet while you aren't wearing heavy armor."
+    }
+  ]
+}
