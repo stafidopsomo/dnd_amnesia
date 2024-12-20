@@ -9,9 +9,9 @@ function read_json($file) {
     return [];
 }
 
-$barbarian_data = read_json("barbarian.json");
-$paladin_data = read_json("paladin.json");
-$rogue_data = read_json("rogue.json");
+$barbarian_data = read_json("all_classes/barbarian.json");
+$paladin_data = read_json("all_classes/paladin.json");
+$rogue_data = read_json("all_classes/rogue.json");
 
 $classes = [
     "Barbarian" => $barbarian_data,
