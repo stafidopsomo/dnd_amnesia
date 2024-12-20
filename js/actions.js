@@ -24,11 +24,6 @@ function handlePerception() {
   const resultDiv = document.getElementById('actionResults');
 
   // Check turn-based restrictions
-  if (!moveUsed) {
-    resultDiv.innerText += "You must move before using Perception this turn!\n";
-    return;
-  }
-
   if (actionUsed) {
     resultDiv.innerText += "You have already taken your action (Attack or Perception) this turn!\n";
     return;
@@ -77,11 +72,6 @@ function handleAttack() {
   const resultDiv = document.getElementById('actionResults');
 
   // Check turn-based restrictions
-  if (!moveUsed) {
-    resultDiv.innerText += "You must move before attacking this turn!\n";
-    return;
-  }
-
   if (actionUsed) {
     resultDiv.innerText += "You have already taken your action (Attack or Perception) this turn!\n";
     return;
