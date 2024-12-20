@@ -1,6 +1,11 @@
 let characterData = null;
 let hasAttackedThisTurn = false;
 
+let turnNumber = 1;
+let guessLimit = 0;
+let moveUsed = false;
+let actionUsed = false; // for either attack or perception in this turn
+
 // Track discovered info
 let knownInfo = {
   speed: null,
@@ -40,8 +45,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById('perceptionBtn').addEventListener('click', handlePerception);
   document.getElementById('attackBtn').addEventListener('click', handleAttack);
 
-  // Event listener for guessing
+  // Guess and End Turn events
   document.getElementById('guessBtn').addEventListener('click', handleGuess);
+  document.getElementById('endTurnBtn').addEventListener('click', handleEndTurn);
 });
 
 async function fetchCharacterData() {
@@ -51,8 +57,15 @@ async function fetchCharacterData() {
 
 function handleMove() {
   const resultDiv = document.getElementById('actionResults');
+
+  // Check turn-based restrictions
+  if (moveUsed) {
+    resultDiv.innerText += "You have already moved this turn!\n";
+    return;
+  }
+
   const speed = characterData.speed;
-  const flavorText = `You stride forward with confident steps, covering ${speed} feet in a single move.\n`;
+  const flavorText = `Turn ${turnNumber}: You stride forward with confident steps, covering ${speed} feet in a single move.\n`;
   resultDiv.innerText += flavorText;
 
   // Record known info if not already recorded
@@ -60,15 +73,28 @@ function handleMove() {
     knownInfo.speed = speed;
     updateKnownInfoPanel();
   }
+
+  moveUsed = true;
 }
 
 function handlePerception() {
   const resultDiv = document.getElementById('actionResults');
 
+  // Check turn-based restrictions
+  if (!moveUsed) {
+    resultDiv.innerText += "You must move before using Perception this turn!\n";
+    return;
+  }
+
+  if (actionUsed) {
+    resultDiv.innerText += "You have already taken your action (Attack or Perception) this turn!\n";
+    return;
+  }
+
   const roll = rollDie(20);
   const perceptionTotal = roll + characterData.perception;
 
-  let output = `You roll a d20 for Perception: ${roll} + ${characterData.perception} = ${perceptionTotal}\n`;
+  let output = `Turn ${turnNumber}: You roll a d20 for Perception: ${roll} + ${characterData.perception} = ${perceptionTotal}\n`;
   if (perceptionTotal > 15) {
     output += "Success! You spot some details:\n";
     const armorName = characterData.armor.name;
@@ -101,10 +127,22 @@ function handlePerception() {
   }
 
   resultDiv.innerText += output;
+  actionUsed = true;
 }
 
 function handleAttack() {
   const resultDiv = document.getElementById('actionResults');
+
+  // Check turn-based restrictions
+  if (!moveUsed) {
+    resultDiv.innerText += "You must move before attacking this turn!\n";
+    return;
+  }
+
+  if (actionUsed) {
+    resultDiv.innerText += "You have already taken your action (Attack or Perception) this turn!\n";
+    return;
+  }
 
   if (hasAttackedThisTurn) {
     resultDiv.innerText += "You have already attacked this turn!\n";
@@ -130,7 +168,7 @@ function handleAttack() {
   console.log(`Has extra attack feature: ${hasExtraAttack}`);
 
   let numberOfAttacks = hasExtraAttack ? 2 : 1;
-  let output = `You attack with ${chosenWeapon.name}:\n`;
+  let output = `Turn ${turnNumber}: You attack with ${chosenWeapon.name}:\n`;
 
   for (let i = 1; i <= numberOfAttacks; i++) {
     if (i === 2 && hasExtraAttack) {
@@ -153,6 +191,7 @@ function handleAttack() {
 
   resultDiv.innerText += output;
   hasAttackedThisTurn = true;
+  actionUsed = true;
 }
 
 function updateKnownInfoPanel() {
@@ -190,6 +229,11 @@ function updateKnownInfoPanel() {
 
 // GUESSING LOGIC
 function handleGuess() {
+  if (guessLimit <= 0) {
+    alert("No guesses available! End your turn to gain more guesses.");
+    return;
+  }
+
   const classGuess = document.getElementById('classGuess').value;
   const strModGuessInput = document.getElementById('strModGuess');
   const strModGuess = parseInt(strModGuessInput.value, 10);
@@ -199,6 +243,9 @@ function handleGuess() {
 
   let classCorrect = (classGuess === actualClass);
   let strModCorrect = (strModGuess === actualStrMod);
+
+  // Use up one guess attempt
+  guessLimit--;
 
   // If both correct, alert congratulations
   if (classCorrect && strModCorrect) {
@@ -236,6 +283,18 @@ function handleGuess() {
 
   // Clear the strength modifier input for next guess
   strModGuessInput.value = '';
+}
+
+function handleEndTurn() {
+  // End current turn and start a new one
+  turnNumber++;
+  guessLimit++; // player earns one more guess
+  hasAttackedThisTurn = false;
+  moveUsed = false;
+  actionUsed = false;
+
+  const resultDiv = document.getElementById('actionResults');
+  resultDiv.innerText += `--- End of Turn ${turnNumber - 1}. Beginning Turn ${turnNumber}. You have ${guessLimit} guess(es) now. ---\n`;
 }
 
 // Utility Functions
