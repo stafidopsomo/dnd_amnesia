@@ -1,5 +1,20 @@
 {
-  "subclasses": ["Berserker", "Zealot"],
+  "subclasses": [
+      {
+          "name": "Berserker",
+          "features": [
+              {"name": "Frenzy", "description": "Bonus action melee attack while raging."},
+              {"name": "Mindless Rage", "description": "Cannot be charmed or frightened while raging."}
+          ]
+      },
+      {
+          "name": "Zealot",
+          "features": [
+              {"name": "Divine Fury", "description": "Extra radiant or necrotic damage while raging."},
+              {"name": "Warrior of the Gods", "description": "Cannot be prevented from being revived."}
+          ]
+      }
+  ],
   "weapons": [
       {"name": "Greataxe", "die": "d12"},
       {"name": "Handaxe", "die": "d6"}
@@ -9,14 +24,8 @@
       "description": "AC = 10 + Dex modifier + Con modifier"
   },
   "features": [
-      {
-          "name": "Rage",
-          "description": "Advantage on STR checks, +2 damage, resistance to physical dmg."
-      },
-      {
-          "name": "Reckless Attack",
-          "description": "Advantage on STR melee attacks, enemies have adv on you."
-      }
+      {"name": "Rage", "description": "Advantage on STR checks, +2 damage, resistance to physical dmg."},
+      {"name": "Reckless Attack", "description": "Advantage on STR melee attacks, enemies have adv on you."}
   ],
   "speed_bonus": 10,
   "hit_die": 12

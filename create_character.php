@@ -35,7 +35,7 @@ $selectedClass = $classKeys[array_rand($classKeys)];
 $classData = $classes[$selectedClass];
 
 $selectedSubclass = $classData["subclasses"][array_rand($classData["subclasses"])] ?? "";
-$level = rand(1, 5);
+$level = rand(5, 6);
 $selectedRace = $races[array_rand($races)];
 $selectedName = $names[array_rand($names)];
 
@@ -49,7 +49,21 @@ $abilities = [
 ];
 
 $proficiency_bonus = ($level < 5) ? 2 : 3;
-$basic_score = ($selectedClass === "Rogue") ? "dex" : "str";
+$basic_score_map = [
+    "Barbarian" => "str",
+    "Bard" => (rand(0, 1) === 0) ? "cha" : "dex",
+    "Cleric" => "wis",
+    "Druid" => "wis",
+    "Fighter" => (rand(0, 1) === 0) ? "str" : "dex",
+    "Monk" => "dex",
+    "Paladin" => "str",
+    "Ranger" => "dex",
+    "Rogue" => "dex",
+    "Sorcerer" => "cha",
+    "Warlock" => "cha",
+    "Wizard" => "int"
+];
+$basic_score = $basic_score_map[$selectedClass] ?? "str";
 
 $selectedWeapons = $classData["weapons"] ?? [];
 $armor = $classData["armor"] ?? [

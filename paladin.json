@@ -1,5 +1,20 @@
 {
-    "subclasses": ["Devotion", "Ancient"],
+    "subclasses": [
+        {
+            "name": "Devotion",
+            "features": [
+                {"name": "Sacred Weapon", "description": "Add Cha modifier to attack rolls."},
+                {"name": "Turn the Unholy", "description": "Turn fiends and undead as an action."}
+            ]
+        },
+        {
+            "name": "Ancient",
+            "features": [
+                {"name": "Nature's Wrath", "description": "Restrain enemies using vines."},
+                {"name": "Turn the Faithless", "description": "Turn fey and fiends as an action."}
+            ]
+        }
+    ],
     "weapons": [
         {"name": "Longsword", "die": "d8"},
         {"name": "Javelin", "die": "d6"}
@@ -9,14 +24,8 @@
         "description": "AC = 16"
     },
     "features": [
-        {
-            "name": "Divine Smite",
-            "description": "Extra radiant damage on a hit by expending spell slots."
-        },
-        {
-            "name": "Lay on Hands",
-            "description": "Heal a target by using your pool of healing power."
-        }
+        {"name": "Divine Smite", "description": "Extra radiant damage on a hit by expending spell slots."},
+        {"name": "Lay on Hands", "description": "Heal a target by using your pool of healing power."}
     ],
     "speed_bonus": 0,
     "hit_die": 10

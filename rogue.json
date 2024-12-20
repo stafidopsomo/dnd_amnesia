@@ -1,5 +1,20 @@
 {
-    "subclasses": ["Thief", "Assassin"],
+    "subclasses": [
+        {
+            "name": "Thief",
+            "features": [
+                {"name": "Fast Hands", "description": "Use an object as a bonus action."},
+                {"name": "Second-Story Work", "description": "Climb faster and jump farther."}
+            ]
+        },
+        {
+            "name": "Assassin",
+            "features": [
+                {"name": "Assassinate", "description": "Advantage on attacks against surprised enemies."},
+                {"name": "Infiltration Expertise", "description": "Create a false identity."}
+            ]
+        }
+    ],
     "weapons": [
         {"name": "Shortsword", "die": "d6"},
         {"name": "Dagger", "die": "d4"}
@@ -9,14 +24,8 @@
         "description": "AC = 11 + Dex modifier"
     },
     "features": [
-        {
-            "name": "Sneak Attack",
-            "description": "Extra damage when you have advantage or ally near target."
-        },
-        {
-            "name": "Cunning Action",
-            "description": "Bonus action to Dash, Disengage, or Hide."
-        }
+        {"name": "Sneak Attack", "description": "Extra damage when you have advantage or ally near target."},
+        {"name": "Cunning Action", "description": "Bonus action to Dash, Disengage, or Hide."}
     ],
     "speed_bonus": 0,
     "hit_die": 8
