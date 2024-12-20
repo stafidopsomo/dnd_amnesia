@@ -1,0 +1,23 @@
+{
+    "subclasses": ["Thief", "Assassin"],
+    "weapons": [
+        {"name": "Shortsword", "die": "d6"},
+        {"name": "Dagger", "die": "d4"}
+    ],
+    "armor": {
+        "name": "Leather Armor",
+        "description": "AC = 11 + Dex modifier"
+    },
+    "features": [
+        {
+            "name": "Sneak Attack",
+            "description": "Extra damage when you have advantage or ally near target."
+        },
+        {
+            "name": "Cunning Action",
+            "description": "Bonus action to Dash, Disengage, or Hide."
+        }
+    ],
+    "speed_bonus": 0,
+    "hit_die": 8
+}
