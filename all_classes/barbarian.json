@@ -24,8 +24,9 @@
       "description": "AC = 10 + Dex modifier + Con modifier"
   },
   "features": [
-      {"name": "Rage", "description": "Advantage on STR checks, +2 damage, resistance to physical dmg."},
-      {"name": "Reckless Attack", "description": "Advantage on STR melee attacks, enemies have adv on you."}
+    {"name": "Rage", "description": "Advantage on STR checks, +2 damage, resistance to physical dmg."},
+    {"name": "Extra Attack", "description": "Attack, but extra"},
+    {"name": "Reckless Attack", "description": "Advantage on STR melee attacks, enemies have adv on you."}
   ],
   "speed_bonus": 10,
   "hit_die": 12

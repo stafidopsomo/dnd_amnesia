@@ -25,6 +25,7 @@
     },
     "features": [
         {"name": "Divine Smite", "description": "Extra radiant damage on a hit by expending spell slots."},
+        {"name": "Extra Attack", "description": "Attack, but extra"},
         {"name": "Lay on Hands", "description": "Heal a target by using your pool of healing power."}
     ],
     "speed_bonus": 0,
