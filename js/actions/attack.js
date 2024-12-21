@@ -2,10 +2,6 @@ function handleAttack() {
   const resultDiv = document.getElementById('actionResults');
 
   // Check turn-based restrictions
-  if (actionUsed) {
-    resultDiv.innerText += "You have already taken your action (Attack or Perception) this turn!\n";
-    return;
-  }
 
   if (hasAttackedThisTurn) {
     resultDiv.innerText += "You have already attacked this turn!\n";
@@ -27,7 +23,7 @@ function handleAttack() {
   const profBonus = characterData.proficiency_bonus;
 
   // Check if Extra Attack feature is present
-  const hasExtraAttack = characterData.features_and_traits.some(f => f.name.toLowerCase() === "extra attack");
+  const hasExtraAttack = characterData.features_and_traits.some(feature => feature.name.toLowerCase() === "extra attack");  
   console.log(`Has extra attack feature: ${hasExtraAttack}`);
 
   let numberOfAttacks = hasExtraAttack ? 2 : 1;

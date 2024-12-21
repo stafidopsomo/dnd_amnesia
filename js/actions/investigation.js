@@ -2,13 +2,9 @@ function handleInvestigation() {
   const resultDiv = document.getElementById('actionResults');
 
   // Check turn-based restrictions
-  if (!moveUsed) {
-    resultDiv.innerText += "You must move before using Investigation this turn!\n";
-    return;
-  }
-
+  
   if (actionUsed) {
-    resultDiv.innerText += "You have already taken your action (Attack, Perception or Investigation) this turn!\n";
+    resultDiv.innerText += "You have already taken your action this turn!\n";
     return;
   }
 

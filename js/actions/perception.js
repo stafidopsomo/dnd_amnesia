@@ -3,7 +3,7 @@ function handlePerception() {
 
   // Check turn-based restrictions
   if (actionUsed) {
-    resultDiv.innerText += "You have already taken your action (Attack or Perception) this turn!\n";
+    resultDiv.innerText += "You have already taken your action this turn!\n";
     return;
   }
 

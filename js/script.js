@@ -8,8 +8,12 @@ let actionUsed = false; // for either attack or perception in this turn
 
 document.addEventListener("DOMContentLoaded", async () => {
   // Fetch character data
+  //await new Promise(r => setTimeout(r, 5000));
   characterData = await fetchCharacterData();
+  console.log("Character data:", characterData);
+  //await new Promise(r => setTimeout(r, 5000));
 
+  console.log(characterData);
   // Console logs with requested info
   console.log("Class: " + characterData.class);
   console.log("Subclass: " + characterData.subclass);
@@ -44,8 +48,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 async function fetchCharacterData() {
-  const response = await fetch('create_character.php');
-  return response.json();
+  try {
+    console.log("Fetching character data...");
+    const response = await fetch('create_character.php');
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching character data:", error);
+  }
 }
 
 

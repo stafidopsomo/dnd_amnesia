@@ -24,8 +24,16 @@
         "description": "AC = 11 + Dex modifier"
     },
     "features": [
-        {"name": "Sneak Attack", "description": "Extra damage when you have advantage or ally near target."},
-        {"name": "Cunning Action", "description": "Bonus action to Dash, Disengage, or Hide."}
+        {
+            "name": "Sneak Attack", 
+            "description": "Extra damage when you have advantage or ally near target.",
+            "level": 1
+        },
+        {
+            "name": "Cunning Action", 
+            "description": "Bonus action to Dash, Disengage, or Hide.",
+            "level": 2
+        }
     ],
     "speed_bonus": 0,
     "hit_die": 8

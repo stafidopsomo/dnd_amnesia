@@ -1,33 +1,51 @@
 {
-  "subclasses": [
+    "subclasses": [
       {
-          "name": "Berserker",
-          "features": [
-              {"name": "Frenzy", "description": "Bonus action melee attack while raging."},
-              {"name": "Mindless Rage", "description": "Cannot be charmed or frightened while raging."}
-          ]
+        "name": "Berserker",
+        "features": [
+          { "name": "Frenzy", "description": "Bonus action melee attack while raging." },
+          { "name": "Mindless Rage", "description": "Cannot be charmed or frightened while raging." }
+        ]
       },
       {
-          "name": "Zealot",
-          "features": [
-              {"name": "Divine Fury", "description": "Extra radiant or necrotic damage while raging."},
-              {"name": "Warrior of the Gods", "description": "Cannot be prevented from being revived."}
-          ]
+        "name": "Zealot",
+        "features": [
+          { "name": "Divine Fury", "description": "Extra radiant or necrotic damage while raging." },
+          { "name": "Warrior of the Gods", "description": "Cannot be prevented from being revived." }
+        ]
       }
-  ],
-  "weapons": [
-      {"name": "Greataxe", "die": "d12"},
-      {"name": "Handaxe", "die": "d6"}
-  ],
-  "armor": {
+    ],
+    "weapons": [
+      { "name": "Greataxe", "die": "d12" },
+      { "name": "Handaxe", "die": "d6" }
+    ],
+    "armor": {
       "name": "Unarmored Defense",
       "description": "AC = 10 + Dex modifier + Con modifier"
-  },
-  "features": [
-    {"name": "Rage", "description": "Advantage on STR checks, +2 damage, resistance to physical dmg."},
-    {"name": "Extra Attack", "description": "Attack, but extra"},
-    {"name": "Reckless Attack", "description": "Advantage on STR melee attacks, enemies have adv on you."}
-  ],
-  "speed_bonus": 10,
-  "hit_die": 12
-}
+    },
+    "features": [
+      {
+        "name": "Rage",
+        "description": "7Advantage on STR checks, +2 damage, resistance to physical dmg.",
+        "level": 1
+      },
+      {
+        "name": "Unarmored Defense",
+        "description": "AC = 10 + Dex modifier + Con modifier",
+        "level": 1
+      },
+      {
+        "name": "Reckless Attack",
+        "description": "Advantage on STR melee attacks, enemies have adv on you.",
+        "level": 2
+      },
+      {
+        "name": "Extra Attack",
+        "description": "You can attack twice with Attack action.",
+        "level": 5
+      }
+    ],
+    "speed_bonus": 10,
+    "hit_die": 12
+  }
+  

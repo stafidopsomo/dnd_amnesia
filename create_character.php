@@ -1,4 +1,7 @@
 <?php
+require 'phpLib/armorCalculations.php';
+require 'phpLib/basic.php';
+
 header('Content-Type: application/json; charset=utf-8');
 
 function read_json($file) {
@@ -24,10 +27,6 @@ $names = ["Thrag Ironfist", "Elandra Moonblade", "Durnan Oakenshield", "Seraphin
 
 function random_ability_score() {
     return rand(8, 18);
-}
-
-function modifier($score) {
-    return floor(($score - 10) / 2);
 }
 
 $classKeys = array_keys($classes);
@@ -71,15 +70,14 @@ $armor = $classData["armor"] ?? [
     "description" => "AC = 11 + Dex modifier"
 ];
 
-$selectedFeatures = $classData["features"] ?? [];
-if ($selectedClass === "Barbarian" && $level >= 5) {
-    $selectedFeatures[] = ["name" => "Extra Attack", "description" => "You can attack twice with Attack action."];
+try {
+    $selectedFeatures = $classData["features"];
+} catch (Exception $e) {
+    echo json_encode(["error" => $e->getMessage()], JSON_PRETTY_PRINT);
+    exit;
 }
 
-$armor_class = 10 + modifier($abilities['dex']);
-if ($armor['name'] === "Leather Armor") {
-    $armor_class = 11 + modifier($abilities['dex']);
-}
+$armor_class = calculateArmorClass($armor, $abilities, $selectedClass, $selectedFeatures);
 
 $initiative = modifier($abilities['dex']);
 $speed = ($selectedRace === "Dwarf" || $selectedRace === "Halfling") ? 25 : 30;

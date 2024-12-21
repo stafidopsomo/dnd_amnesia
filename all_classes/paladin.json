@@ -24,9 +24,21 @@
         "description": "AC = 16"
     },
     "features": [
-        {"name": "Divine Smite", "description": "Extra radiant damage on a hit by expending spell slots."},
-        {"name": "Extra Attack", "description": "Attack, but extra"},
-        {"name": "Lay on Hands", "description": "Heal a target by using your pool of healing power."}
+        {
+            "name": "Lay on Hands", 
+            "description": "Heal a target by using your pool of healing power.",
+            "level": 1
+        },
+        {
+            "name": "Divine Smite", 
+            "description": "Extra radiant damage on a hit by expending spell slots.",
+            "level": 2
+        },
+        {
+            "name": "Extra Attack", 
+            "description": "Attack, but extra",
+            "level": 5
+        }
     ],
     "speed_bonus": 0,
     "hit_die": 10
