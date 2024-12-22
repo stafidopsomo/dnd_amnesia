@@ -11,7 +11,7 @@ function handleInvestigation() {
   const roll = rollDie(20);
   const investigationTotal = roll + characterData.investigation;
 
-  let output = `Turn ${turnNumber}: You roll a d20 for Perception: ${roll} + ??? = ???\n`;
+  let output = `Turn ${turnNumber}: You roll a d20 for Investigation: ${roll} + ??? = ???\n`;
   if (investigationTotal > 10) {
     output += "Success! You deduce that:\n";
 
