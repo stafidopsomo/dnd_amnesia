@@ -4,7 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Character Actions</title>
+<!-- Use your updated CSS file -->
 <link rel="stylesheet" href="styles.css">
+
+<!-- You can keep or remove this Roboto import if you prefer Cinzel only -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -27,12 +30,12 @@
             <button id="attackBtn" class="action-btn attack-btn">Attack</button>
           </div>
           <button id="endTurnBtn" class="action-btn end-turn-btn">End Turn</button>
-
         </div>
       </section>
 
       <section class="results-section">
         <h2>Action Results</h2>
+        <!-- The scrollable results container -->
         <div id="actionResults"></div>
       </section>
     </div>
@@ -66,6 +69,7 @@
     </aside>
   </div>
   
+  <!-- Split or combined JS files as you have them -->
   <script src="js/basic.js"></script>
   <script src="js/actions/move.js"></script>
   <script src="js/actions/attack.js"></script>

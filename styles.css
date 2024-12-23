@@ -1,11 +1,19 @@
 /* Global Styles */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+/* You had Cinzel in a previous version. If you still want it, re-add it here: */
+/*@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');*/
 
+/* If you want only Cinzel, remove the Roboto import from index.html. */
 body {
   margin: 0;
   padding: 0;
   background-color: #4d0000;
+  /* If using Cinzel:
   font-family: 'Cinzel', serif;
+  */
+  /* If using Roboto from the HTML:
+  font-family: 'Roboto', serif;
+  */
+  font-family: 'Cinzel', serif; /* Example: using Cinzel */
   color: #f5f5f5;
   min-height: 100vh;
 }
@@ -93,6 +101,7 @@ button {
   color: #f5f5f5;
   border: 2px solid #d4af37;
   padding: 10px 20px;
+  /* If using Cinzel: */
   font-family: 'Cinzel', serif;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
@@ -103,6 +112,18 @@ button {
 button:hover {
   background-color: #d4af37;
   color: #4b2e2e;
+}
+
+/* Action Results Scroll Box */
+.results-section #actionResults {
+  /* This ensures scrolling instead of endless expansion */
+  max-height: 300px;  /* Adjust as desired */
+  overflow-y: auto;
+  border: 1px solid #d4af37;
+  border-radius: 6px;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 /* Card */
@@ -121,4 +142,101 @@ footer {
   text-align: center;
   padding: 10px;
   border-top: 2px solid #d4af37;
+}
+
+/* Info Panel / Sidebar */
+.info-panel {
+  flex: 1;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid #d4af37;
+  margin: 0 20px 40px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.info-panel h2 {
+  font-size: 1.5rem;
+  color: #d4af37;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 2px #000000;
+}
+
+.info-content p {
+  margin: 0.5em 0;
+  line-height: 1.4;
+}
+
+.guess-section {
+  margin-top: 20px;
+  border-top: 1px solid #d4af37;
+  padding-top: 20px;
+}
+
+.guess-section h3 {
+  font-size: 1.2rem;
+  color: #d4af37;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 2px #000000;
+}
+
+.guess-section label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: 500;
+}
+
+.guess-section select, 
+.guess-section input {
+  width: 100%;
+  padding: 8px;
+  border: 2px solid #d4af37;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #4b2e2e;
+  color: #f5f5f5;
+  margin-bottom: 10px;
+}
+
+.guess-btn {
+  margin-top: 15px;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 2px solid #d4af37;
+  border-radius: 8px;
+  background-color: #4b2e2e;
+  color: #f5f5f5;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}
+
+.guess-btn:hover {
+  background-color: #d4af37;
+  color: #4b2e2e;
+}
+
+.guess-results {
+  margin-top: 15px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid #d4af37;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.guess-results p {
+  margin: 0.5em 0;
+  line-height: 1.4;
+  font-size: 0.95rem;
+}
+
+.correct {
+  color: #65ff65;
+  font-weight: 700;
+}
+
+.incorrect {
+  color: #ff6565;
+  font-weight: 700;
 }
