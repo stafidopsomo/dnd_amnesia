@@ -84,7 +84,7 @@ function handleGuess() {
 
   // If both correct, alert congratulations
   if (classCorrect && strModCorrect) {
-    alert("Congratulations!");
+    showSiteStyledPopup("Congratulations!", "You recovered your memory!");
   } else {
     // If incorrect, append a new line in guessResults
     const guessResultsDiv = document.getElementById('guessResults');
@@ -119,6 +119,49 @@ function handleGuess() {
 
   // Clear the strength modifier input for next guess
   strModGuessInput.value = '';
+}
+
+function showSiteStyledPopup(titleText, bodyText) {
+  // Create the outer container
+  const popup = document.createElement('div');
+  popup.style.position = 'fixed';
+  popup.style.top = '50%';
+  popup.style.left = '50%';
+  popup.style.transform = 'translate(-50%, -50%)';
+  popup.style.backgroundColor = '#4b2e2e';
+  popup.style.color = '#f5f5f5';
+  popup.style.border = '2px solid #d4af37';
+  popup.style.padding = '20px';
+  popup.style.borderRadius = '12px';
+  popup.style.zIndex = '9999';
+  popup.style.textAlign = 'center';
+  popup.style.minWidth = '250px';
+
+  // Inner HTML: Title, message, and close button
+  popup.innerHTML = `
+    <h2 style="font-size: 1.8rem; margin-bottom: 0.5em; color: #d4af37;">${titleText}</h2>
+    <p style="margin-bottom: 1em;">${bodyText}</p>
+    <button id="popupCloseBtn" style="
+      background-color: #d4af37;
+      color: #4b2e2e;
+      font-family: 'Cinzel', serif;
+      padding: 10px 20px;
+      border: 2px solid #4b2e2e;
+      border-radius: 6px;
+      cursor: pointer;
+    ">
+      Close
+    </button>
+  `;
+
+  // Append to body
+  document.body.appendChild(popup);
+
+  // When Close is clicked, remove popup
+  const closeBtn = document.getElementById('popupCloseBtn');
+  closeBtn.addEventListener('click', () => {
+    popup.remove();
+  });
 }
 
 function handleEndTurn() {
