@@ -18,6 +18,16 @@ body {
   min-height: 100vh;
 }
 
+label {
+  color: #000000;
+}
+p {
+  color: #000000;
+}
+span {
+  color: #000000;
+}
+
 /* Layout */
 .layout {
   display: flex;

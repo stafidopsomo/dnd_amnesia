@@ -70,8 +70,13 @@ function handleGuess() {
   }
 
   const classGuess = document.getElementById('classGuess').value;
-  const strModGuessInput = document.getElementById('strModGuess');
-  const strModGuess = parseInt(strModGuessInput.value, 10);
+  
+  const strScore = document.getElementById('str-score');
+  console.log(strScore);
+  const strModGuessInput = abilityScoreModifier(parseInt(strScore.value) || 0);
+  console.log(strModGuessInput);
+  const strModGuess = parseInt(strModGuessInput, 10);
+  console.log(strModGuess);
 
   const actualClass = characterData.class; 
   const actualStrMod = abilityScoreModifier(characterData.abilities.str);
