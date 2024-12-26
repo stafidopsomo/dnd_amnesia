@@ -64,31 +64,56 @@ async function fetchCharacterData() {
 
 // GUESSING LOGIC
 function handleGuess() {
-  if (guessLimit <= 0) {
-    alert("No guesses available! End your turn to gain more guesses.");
-    return;
-  }
 
   const classGuess = document.getElementById('classGuess').value;
-  
-  const strScore = document.getElementById('str-score');
-  console.log(strScore);
-  const strModGuessInput = abilityScoreModifier(parseInt(strScore.value) || 0);
-  console.log(strModGuessInput);
-  const strModGuess = parseInt(strModGuessInput, 10);
-  console.log(strModGuess);
+  const subclassGuess = document.getElementById('subclass').value;
+  const strScoreGuess = document.getElementById('str-score');
+  const dexScoreGuess = document.getElementById('dex-score');
+  const conScoreGuess = document.getElementById('con-score');
+  const intScoreGuess = document.getElementById('int-score');
+  const wisScoreGuess = document.getElementById('wis-score');
+  const chaScoreGuess = document.getElementById('cha-score');
+  const initiativeGuess = document.getElementById('initiative');
+
+  const strModGuess = parseInt(abilityScoreModifier(parseInt(strScoreGuess.value) || 0), 10);
+  const dexModGuess = parseInt(abilityScoreModifier(parseInt(dexScoreGuess.value) || 0), 10);
+  const conModGuess = parseInt(abilityScoreModifier(parseInt(conScoreGuess.value) || 0), 10);
+  const intModGuess = parseInt(abilityScoreModifier(parseInt(intScoreGuess.value) || 0), 10);
+  const wisModGuess = parseInt(abilityScoreModifier(parseInt(wisScoreGuess.value) || 0), 10);
+  const chaModGuess = parseInt(abilityScoreModifier(parseInt(chaScoreGuess.value) || 0), 10);
+
 
   const actualClass = characterData.class; 
+  const actualSubclass = characterData.subclass.name; 
   const actualStrMod = abilityScoreModifier(characterData.abilities.str);
+  const actualDexMod = abilityScoreModifier(characterData.abilities.dex);
+  const actualConMod = abilityScoreModifier(characterData.abilities.con);
+  const actualIntMod = abilityScoreModifier(characterData.abilities.int);
+  const actualWisMod = abilityScoreModifier(characterData.abilities.wis);
+  const actualChaMod = abilityScoreModifier(characterData.abilities.cha);
+  const actualInitiative = characterData.initiative; 
+
+  console.log('Handle guess:');
+  console.log('           Actual\t\t\t| Guess');
+  console.log('Class:     '+classGuess+'\t\t\t| '+characterData.class);
+  console.log('Subclass:  '+subclassGuess+'\t| '+characterData.subclass.name);
+  console.log('Str:       '+strModGuess+'\t\t\t| '+actualStrMod);
+  console.log('Init:      '+actualInitiative+'\t\t\t| '+initiativeGuess);
 
   let classCorrect = (classGuess === actualClass);
+  let subclassCorrect = (subclassGuess === actualSubclass);
   let strModCorrect = (strModGuess === actualStrMod);
+  let dexModCorrect = (dexModGuess === actualDexMod);
+  let conModCorrect = (conModGuess === actualConMod);
+  let intModCorrect = (intModGuess === actualIntMod);
+  let wisModCorrect = (wisModGuess === actualWisMod);
+  let chaModCorrect = (chaModGuess === actualChaMod);
 
   // Use up one guess attempt
   guessLimit++;
 
   // If both correct, alert congratulations
-  if (classCorrect && strModCorrect) {
+  if (classCorrect && subclassCorrect && strModCorrect) {
     showSiteStyledPopup("Congratulations!", "You recovered your memory!");
   } else {
     // If incorrect, append a new line in guessResults
@@ -101,29 +126,27 @@ function handleGuess() {
       `<span class="correct">${classGuess}</span>` : 
       `<span class="incorrect">${classGuess}</span>`;
 
-    let strModResultSpan = '';
-    if (strModCorrect) {
-      strModResultSpan = `<span class="correct">${strModGuess}</span>`;
-    } else {
-      // Incorrect guess. Show arrow
-      let arrow = '';
-      if (Number.isFinite(strModGuess)) {
-        if (strModGuess < actualStrMod) {
-          arrow = ' ↑';
-        } else if (strModGuess > actualStrMod) {
-          arrow = ' ↓';
-        }
-      }
-      strModResultSpan = `<span class="incorrect">${isNaN(strModGuess) ? '?' : strModGuess}${arrow}</span>`;
-    }
+    let strModResultSpan = scoreCheckSpanCreate(strModGuess, actualStrMod);
+    //if (strModCorrect) {
+    //  strModResultSpan = `<span class="correct">${strModGuess}</span>`;
+    //} else {
+    //  // Incorrect guess. Show arrow
+    //  let arrow = '';
+    //  if (Number.isFinite(strModGuess)) {
+    //    if (strModGuess < actualStrMod) {
+    //      arrow = ' ↑';
+    //    } else if (strModGuess > actualStrMod) {
+    //      arrow = ' ↓';
+    //    }
+    //  }
+    //  strModResultSpan = `<span class="incorrect">${isNaN(strModGuess) ? '?' : strModGuess}${arrow}</span>`;
+    //}
 
     const guessLine = `<p>Class Guess: ${classResultSpan} | Str Mod Guess: ${strModResultSpan}</p>`;
     guessResultsDiv.innerHTML += guessLine;
     document.getElementById('guessesCount').innerHTML = `<p><em>Number of guesses: ${guessLimit}</em></p>`;
   }
 
-  // Clear the strength modifier input for next guess
-  strModGuessInput.value = '';
 }
 
 function showSiteStyledPopup(titleText, bodyText) {
@@ -179,4 +202,23 @@ function handleEndTurn() {
 
   const resultDiv = document.getElementById('actionResults');
   document.getElementById('guessesCount').innerHTML = `<p><em>Number of guesses: ${guessLimit}</em></p>`;
+}
+
+function scoreCheckSpanCreate(ModGuess, actualMod) {
+  let tmpSpan = ``;
+  if (ModGuess == actualMod) {
+    tmpSpan = `<span class="correct">${ModGuess}</span>`;
+  } else {
+    // Incorrect guess. Show arrow
+    let arrow = '';
+    if (Number.isFinite(ModGuess)) {
+      if (ModGuess < actualMod) {
+        arrow = ' ↑';
+      } else if (ModGuess > actualMod) {
+        arrow = ' ↓';
+      }
+    }
+    tmpSpan = `<span class="incorrect">${isNaN(ModGuess) ? '?' : ModGuess}${arrow}</span>`;
+  }
+  return tmpSpan;
 }

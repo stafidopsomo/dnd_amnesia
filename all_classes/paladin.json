@@ -1,14 +1,14 @@
 {
     "subclasses": [
         {
-            "name": "Devotion",
+            "name": "Oath of Devotion",
             "features": [
                 {"name": "Sacred Weapon", "description": "Add Cha modifier to attack rolls."},
                 {"name": "Turn the Unholy", "description": "Turn fiends and undead as an action."}
             ]
         },
         {
-            "name": "Ancient",
+            "name": "Oath of Ancient",
             "features": [
                 {"name": "Nature's Wrath", "description": "Restrain enemies using vines."},
                 {"name": "Turn the Faithless", "description": "Turn fey and fiends as an action."}
