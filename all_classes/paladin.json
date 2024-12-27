@@ -8,7 +8,7 @@
             ]
         },
         {
-            "name": "Oath of Ancient",
+            "name": "Oath of Ancients",
             "features": [
                 {"name": "Nature's Wrath", "description": "Restrain enemies using vines."},
                 {"name": "Turn the Faithless", "description": "Turn fey and fiends as an action."}

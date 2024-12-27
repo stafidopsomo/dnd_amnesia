@@ -1,3 +1,12 @@
+/* ************************************************************
+* Success Shows:
+*     Armor Proficient Classes
+*     Armor minimum requirements
+*     Weapon Proficient Classes
+*     (TODO)
+* 
+* 
+*************************************************************** */
 function handleInvestigation() {
   const resultDiv = document.getElementById('actionResults');
 
@@ -54,22 +63,8 @@ function handleInvestigation() {
     }).filter(Boolean);
 
     knownInfo.weaponProficiencies = weaponProficiencies.join('\n');
-    // ========================================================================================================
-    // ========================================================================================================
-    // ========================================================================================================
-    // STRENGTH SCORE
-
-    const strScore = characterData.abilities.str;
-    let strLevel = (strScore < 10) ? "low" : (strScore <= 14) ? "mid" : "high";
-    output += `Your Strength score seems ${strLevel}.\n`;
-    if (!knownInfo.strengthLevel) {
-      knownInfo.strengthLevel = strLevel;
-    }
-
-    
 
 
-    
     updateKnownInfoPanel();
 
   } else {

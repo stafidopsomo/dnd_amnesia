@@ -1,3 +1,13 @@
+/* ************************************************************
+* Success Shows:
+*     Armor
+*     Weapon
+*     Strength Level
+*     Holy Symbol (TODO)
+* 
+* 
+* 
+*************************************************************** */
 function handlePerception() {
   const resultDiv = document.getElementById('actionResults');
 

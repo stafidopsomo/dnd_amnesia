@@ -1,3 +1,12 @@
+/* ************************************************************
+* 
+* 
+* 
+* 
+* 
+* 
+* 
+*************************************************************** */
 function handleAttack() {
   const resultDiv = document.getElementById('actionResults');
 
@@ -10,11 +19,18 @@ function handleAttack() {
 
   const weaponSelect = document.getElementById('weaponSelect');
   const selectedWeaponName = weaponSelect.value;
-  const chosenWeapon = characterData.weapons.find(w => w.name === selectedWeaponName);
-
-  if (!chosenWeapon) {
+  const proficientWeapon = characterData.weapons.find(w => w.name === selectedWeaponName);
+  const nonProficientWeapon = characterData.nonProficientWeapons.find(w => w.name === selectedWeaponName);
+  if (!proficientWeapon && !nonProficientWeapon){
     resultDiv.innerText += "Invalid weapon choice.\n";
     return;
+  }
+  const extraModifier = 0;
+  const chosenWeapon = (proficientWeapon) ? proficientWeapon : nonProficientWeapon;
+  const hasAdvantage = false;
+  const hasDisdvantage = false;
+  if (nonProficientWeapon) {
+    extraModifier += -characterData.profBonus
   }
 
   const basicScoreName = characterData.Basic_Score; 
@@ -33,18 +49,31 @@ function handleAttack() {
     if (i === 2 && hasExtraAttack) {
       output += "\nYou have the Extra Attack feature, so you immediately attack a second time with the same weapon!\n";
     }
-
-    const attackRoll = rollDie(20) + basicMod + profBonus;
-    output += `Attack ${i}: d20 + ${basicMod}(mod) + ${profBonus}(prof) = ${attackRoll}\n`;
+    const attackRoll = 0;
+    if (hasDisdvantage && !hasAdvantage){
+      let attackRoll1 = rollDie(20) + basicMod + profBonus + extraModifier;
+      let attackRoll2 = rollDie(20) + basicMod + profBonus + extraModifier;
+      attackRoll = ( attackRoll1 < attackRoll2) ? attackRoll1 : attackRoll2;
+    }
+    else if (hasAdvantage && !hasDisdvantage){
+      let attackRoll1 = rollDie(20) + basicMod + profBonus+ extraModifier;
+      let attackRoll2 = rollDie(20) + basicMod + profBonus+ extraModifier;
+      attackRoll = ( attackRoll1 > attackRoll2) ? attackRoll1 : attackRoll2;
+    }
+    else {
+      attackRoll = rollDie(20) + basicMod + profBonus + extraModifier;
+    }
+    
+    
 
     if (attackRoll > 14) {
-      output += "Hit! Rolling damage...\n";
+      output += `${i}: ${attackRoll-basicMod-profBonus-extraModifier} + ...Hit! Rolling damage...\n`;
       const damageDie = chosenWeapon.die;
       const damageRoll = rollDie(parseInt(damageDie.replace('d','')));
       const totalDamage = damageRoll + basicMod;
-      output += `Damage: ${damageDie} = ${damageRoll} + ${basicMod}(mod) = ${totalDamage} damage.\n`;
+      output += `Damage: ${damageRoll}+... = ${totalDamage} damage.\n`;
     } else {
-      output += "Miss!\n";
+      output += `${i}: ${attackRoll-basicMod-profBonus} + ...Miss!\n`;
     }
   }
 

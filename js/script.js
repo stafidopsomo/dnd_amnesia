@@ -35,6 +35,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     option.textContent = weapon.name;
     weaponSelect.appendChild(option);
   });
+  characterData.nonProficientWeapons.forEach((weapon) => {
+    const option = document.createElement('option');
+    option.value = weapon.name;
+    option.textContent = weapon.name;
+    weaponSelect.appendChild(option);
+  });
 
   // Event listeners for actions
   document.getElementById('moveBtn').addEventListener('click', handleMove);
@@ -125,25 +131,25 @@ function handleGuess() {
     let classResultSpan = classCorrect ? 
       `<span class="correct">${classGuess}</span>` : 
       `<span class="incorrect">${classGuess}</span>`;
+    let subclassResultSpan = subclassCorrect ? 
+      `<span class="correct">${subclassGuess}</span>` : 
+      `<span class="incorrect">${subclassGuess}</span>`;
 
     let strModResultSpan = scoreCheckSpanCreate(strModGuess, actualStrMod);
-    //if (strModCorrect) {
-    //  strModResultSpan = `<span class="correct">${strModGuess}</span>`;
-    //} else {
-    //  // Incorrect guess. Show arrow
-    //  let arrow = '';
-    //  if (Number.isFinite(strModGuess)) {
-    //    if (strModGuess < actualStrMod) {
-    //      arrow = ' ↑';
-    //    } else if (strModGuess > actualStrMod) {
-    //      arrow = ' ↓';
-    //    }
-    //  }
-    //  strModResultSpan = `<span class="incorrect">${isNaN(strModGuess) ? '?' : strModGuess}${arrow}</span>`;
-    //}
-
-    const guessLine = `<p>Class Guess: ${classResultSpan} | Str Mod Guess: ${strModResultSpan}</p>`;
-    guessResultsDiv.innerHTML += guessLine;
+    let dexModResultSpan = scoreCheckSpanCreate(dexModGuess, actualDexMod);
+    let conModResultSpan = scoreCheckSpanCreate(conModGuess, actualConMod);
+    let intModResultSpan = scoreCheckSpanCreate(intModGuess, actualIntMod);
+    let wisModResultSpan = scoreCheckSpanCreate(wisModGuess, actualWisMod);
+    let chaModResultSpan = scoreCheckSpanCreate(chaModGuess, actualChaMod);
+    const testLine = `<p>${classResultSpan} | ${subclassResultSpan} | 
+        Str: ${strModResultSpan} </p>`;
+        //Dex: ${dexModResultSpan} 
+        //Con: ${conModResultSpan} 
+        //Int: ${intModResultSpan} 
+        //Wis: ${wisModResultSpan} 
+        //Cha: ${chaModResultSpan} </p>`;
+    //const guessLine = `<p>Class Guess: ${classResultSpan} | Str Mod Guess: ${strModResultSpan}</p>`;
+    guessResultsDiv.innerHTML += testLine;
     document.getElementById('guessesCount').innerHTML = `<p><em>Number of guesses: ${guessLimit}</em></p>`;
   }
 

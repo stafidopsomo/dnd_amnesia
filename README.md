@@ -1,5 +1,6 @@
 # dnd_amnesia
 
+
 SPYRAMIDA NOTES:
 
 Psaxnw:
@@ -45,7 +46,6 @@ TODOs:
         - An exei ksekleidwsei kapoio feature (p.x success on Insight kai exw Reckless) to attack exei advantage
  - integrate subclass
     backend: subclass features na allazoun speed/proficiencies/attack rolls/klp
-    frontend: na prospathei o allos na madepsei kai to subclass (dropdown to opoio eksartatai apo to class) kai na vgazei wraia ta mhnymata
  - na yparxei counter twn gyrwn kai counter twn guesses
  - na exoume panw panw ena character sheet me erwthmatika:
         : name: ??? , race: human, str/dex/klp, speed, initiative, class, subclass, level: 5

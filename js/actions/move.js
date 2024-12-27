@@ -1,3 +1,12 @@
+/* ************************************************************
+*  Shows Speed
+* 
+* 
+* 
+* 
+* 
+* 
+*************************************************************** */
 function handleMove() {
   const resultDiv = document.getElementById('actionResults');
 

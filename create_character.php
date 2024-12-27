@@ -65,6 +65,13 @@ $basic_score_map = [
 $basic_score = $basic_score_map[$selectedClass] ?? "str";
 
 $selectedWeapons = $classData["weapons"] ?? [];
+if ($selectedClass == 'Wizard' || $selectedClass == 'Barbarian') {
+    $nonProficientWeapons = [
+        ["name" => "strapon", "die" => "d12"]
+    ];
+} else {
+    $nonProficientWeapons = [];
+}
 $armor = $classData["armor"] ?? [
     "name" => "Leather Armor",
     "description" => "AC = 11 + Dex modifier"
@@ -111,6 +118,7 @@ $character = [
     "speed" => $speed,
     "hit_points" => $hp,
     "weapons" => $selectedWeapons,
+    "nonProficientWeapons" => $nonProficientWeapons,
     "armor" => $armor,
     "features_and_traits" => $selectedFeatures
 ];
