@@ -21,10 +21,10 @@
       "constitution": 6
     },
     "skills": {
-      "athletics": 6,
-      "intimidation": 3,
-      "survival": 2,
-      "perception": 2
+      "athletics": "none",
+      "intimidation": "prof",
+      "survival": "exp",
+      "perception": "half"
     },
     "armor_class": 15,
     "initiative": 2,
@@ -42,6 +42,12 @@
       {
         "name": "Javelin",
         "die": "d6"
+      }
+    ],
+    "nonProficientWeapons":[
+      {
+        "name": "Opla pou krataei alla den exei prof",
+        "die": "d14"
       }
     ],
     "armor": {

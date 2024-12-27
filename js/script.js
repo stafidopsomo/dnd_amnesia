@@ -71,6 +71,10 @@ async function fetchCharacterData() {
 // GUESSING LOGIC
 function handleGuess() {
 
+  // ----------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------------
+  // Retrieve Guesses
   const classGuess = document.getElementById('classGuess').value;
   const subclassGuess = document.getElementById('subclass').value;
   const strScoreGuess = document.getElementById('str-score');
@@ -88,7 +92,29 @@ function handleGuess() {
   const wisModGuess = parseInt(abilityScoreModifier(parseInt(wisScoreGuess.value) || 0), 10);
   const chaModGuess = parseInt(abilityScoreModifier(parseInt(chaScoreGuess.value) || 0), 10);
 
+  const abilityChecks = [ "athletics", "stealth", "arcana", "insight", "persuasion" ]
+  const cntCorrects = 0;
+  const cntProfs = 0;
+  const cntFails = 0;
+  for (let aa of abilityChecks) {
+    let abilityGuess = document.getElementById(aa + "-proficiency").checked; // todo expertise and half-prof
+    let abilityActual = characterData.skills[aa] == "prof";
+    if (abilityActual){
+      cntProfs++;
+    }
+    if (abilityGuess && abilityActual){
+      cntCorrects++;
+    }
+    else if (abilityGuess && !abilityActual){
+      cntFails++;
+    }
+}
 
+  const aaa = (document.getElementById("stealth-proficiency").checked) ? true : false;
+  // ----------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------------
+  // Retrieve Actual Values
   const actualClass = characterData.class; 
   const actualSubclass = characterData.subclass.name; 
   const actualStrMod = abilityScoreModifier(characterData.abilities.str);
@@ -99,6 +125,10 @@ function handleGuess() {
   const actualChaMod = abilityScoreModifier(characterData.abilities.cha);
   const actualInitiative = characterData.initiative; 
 
+  // ----------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------------
+  // Comparing Guess with Actual
   console.log('Handle guess:');
   console.log('           Actual\t\t\t| Guess');
   console.log('Class:     '+classGuess+'\t\t\t| '+characterData.class);
@@ -118,7 +148,7 @@ function handleGuess() {
   // Use up one guess attempt
   guessLimit++;
 
-  // If both correct, alert congratulations
+  // If all correct, alert congratulations
   if (classCorrect && subclassCorrect && strModCorrect) {
     showSiteStyledPopup("Congratulations!", "You recovered your memory!");
   } else {

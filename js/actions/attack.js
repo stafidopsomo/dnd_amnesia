@@ -25,10 +25,10 @@ function handleAttack() {
     resultDiv.innerText += "Invalid weapon choice.\n";
     return;
   }
-  const extraModifier = 0;
+  let extraModifier = 0;
   const chosenWeapon = (proficientWeapon) ? proficientWeapon : nonProficientWeapon;
-  const hasAdvantage = false;
-  const hasDisdvantage = false;
+  let hasAdvantage = false;
+  let hasDisdvantage = false;
   if (nonProficientWeapon) {
     extraModifier += -characterData.profBonus
   }
@@ -45,25 +45,25 @@ function handleAttack() {
   let numberOfAttacks = hasExtraAttack ? 2 : 1;
   let output = `Turn ${turnNumber}: You attack with ${chosenWeapon.name}:\n`;
 
+  let finalRoll = 0;
   for (let i = 1; i <= numberOfAttacks; i++) {
     if (i === 2 && hasExtraAttack) {
       output += "\nYou have the Extra Attack feature, so you immediately attack a second time with the same weapon!\n";
     }
-    const attackRoll = 0;
     if (hasDisdvantage && !hasAdvantage){
       let attackRoll1 = rollDie(20) + basicMod + profBonus + extraModifier;
       let attackRoll2 = rollDie(20) + basicMod + profBonus + extraModifier;
-      attackRoll = ( attackRoll1 < attackRoll2) ? attackRoll1 : attackRoll2;
+      finalRoll = ( attackRoll1 < attackRoll2) ? attackRoll1 : attackRoll2;
     }
     else if (hasAdvantage && !hasDisdvantage){
       let attackRoll1 = rollDie(20) + basicMod + profBonus+ extraModifier;
       let attackRoll2 = rollDie(20) + basicMod + profBonus+ extraModifier;
-      attackRoll = ( attackRoll1 > attackRoll2) ? attackRoll1 : attackRoll2;
+      finalRoll = ( attackRoll1 > attackRoll2) ? attackRoll1 : attackRoll2;
     }
     else {
-      attackRoll = rollDie(20) + basicMod + profBonus + extraModifier;
+      finalRoll = rollDie(20) + basicMod + profBonus + extraModifier;
     }
-    
+    const attackRoll = finalRoll;
     
 
     if (attackRoll > 14) {
