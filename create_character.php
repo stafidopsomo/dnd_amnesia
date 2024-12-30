@@ -33,7 +33,8 @@ $level = rand(5, 6);
 // ------------------------------------------------------------------------------
 // Generate background+name
 $selectedBackground = 'Sage';
-$selectedName = assignName($selectedRace, $selectedClass, $selectedSubclass, $selectedBackground);
+//$selectedName = assignName($selectedRace, $selectedClass, $selectedSubclass, $selectedBackground);
+$selectedName = 'Nogu Love';
 
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------

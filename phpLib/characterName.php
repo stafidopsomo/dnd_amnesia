@@ -14,11 +14,11 @@ function assignName($selectedRace, $selectedClass, $selectedSubclass, $selectedB
             ]
         ],
         "Paladin" => [
-            "Devotion" => [
+            "Oath of Devotion" => [
                 "first" => ["Aedan", "Liora", "Cedric", "Isolde"],
                 "last" => ["Lightbringer", "Dawnsword", "Holyshield", "Silverhand"]
             ],
-            "Ancients" => [
+            "Oath of Ancients" => [
                 "first" => ["Eryndor", "Faelar", "Sylwen", "Loriel"],
                 "last" => ["Oakenshield", "Forestkeeper", "Greenshadow", "Leafwhisper"]
             ]
