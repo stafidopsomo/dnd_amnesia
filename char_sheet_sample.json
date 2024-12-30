@@ -2,6 +2,7 @@
     "name": "Thrag Ironfist",
     "class": "Barbarian",
     "subclass": "Path of the Berserker",
+    "background": "Sage",
     "level": 5,
     "race": "Human",
     "abilities": {

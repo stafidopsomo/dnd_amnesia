@@ -1,20 +1,17 @@
 <?php
 require 'phpLib/armorCalculations.php';
 require 'phpLib/basic.php';
+require 'phpLib/characterName.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
-function read_json($file) {
-    $path = __DIR__ . "/$file";
-    if (file_exists($path)) {
-        return json_decode(file_get_contents($path), true);
-    }
-    return [];
-}
-
-$barbarian_data = read_json("all_classes/barbarian.json");
-$paladin_data = read_json("all_classes/paladin.json");
-$rogue_data = read_json("all_classes/rogue.json");
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// Load JSONs
+$barbarian_data = read_json("../all_classes/barbarian.json");
+$paladin_data = read_json("../all_classes/paladin.json");
+$rogue_data = read_json("../all_classes/rogue.json");
 
 $classes = [
     "Barbarian" => $barbarian_data,
@@ -23,12 +20,11 @@ $classes = [
 ];
 
 $races = ["Human", "Elf", "Dwarf", "Halfling"];
-$names = ["Thrag Ironfist", "Elandra Moonblade", "Durnan Oakenshield", "Seraphina Swiftfoot"];
 
-function random_ability_score() {
-    return rand(8, 18);
-}
-
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// Generate class/subclass/race/background/scores
 $classKeys = array_keys($classes);
 $selectedClass = $classKeys[array_rand($classKeys)];
 $classData = $classes[$selectedClass];
@@ -36,7 +32,8 @@ $classData = $classes[$selectedClass];
 $selectedSubclass = $classData["subclasses"][array_rand($classData["subclasses"])] ?? "";
 $level = rand(5, 6);
 $selectedRace = $races[array_rand($races)];
-$selectedName = $names[array_rand($names)];
+$selectedBackground = 'Sage';
+$selectedName = assignName($selectedRace, $selectedClass, $selectedSubclass, $selectedBackground);
 
 $abilities = [
     "str" => random_ability_score(),
@@ -64,6 +61,10 @@ $basic_score_map = [
 ];
 $basic_score = $basic_score_map[$selectedClass] ?? "str";
 
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// Weapons
 $selectedWeapons = $classData["weapons"] ?? [];
 if ($selectedClass == 'Wizard' || $selectedClass == 'Barbarian') {
     $nonProficientWeapons = [
@@ -72,11 +73,11 @@ if ($selectedClass == 'Wizard' || $selectedClass == 'Barbarian') {
 } else {
     $nonProficientWeapons = [];
 }
-$armor = $classData["armor"] ?? [
-    "name" => "Leather Armor",
-    "description" => "AC = 11 + Dex modifier"
-];
 
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// Features
 try {
     $selectedFeatures = $classData["features"];
 } catch (Exception $e) {
@@ -84,19 +85,44 @@ try {
     exit;
 }
 
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// Armor 
+// TODO: other armors(?)
+$armor = $classData["armor"] ?? [
+    "name" => "Leather Armor",
+    "description" => "AC = 11 + Dex modifier"
+];
 $armor_class = calculateArmorClass($armor, $abilities, $selectedClass, $selectedFeatures);
 
-$initiative = modifier($abilities['dex']);
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// Speed
+// TODO: check features and apply bonuses
 $speed = ($selectedRace === "Dwarf" || $selectedRace === "Halfling") ? 25 : 30;
 $speed += $classData["speed_bonus"] ?? 0;
+
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// Initiative+hp
+$initiative = modifier($abilities['dex']);
+
 
 $hit_die = $classData["hit_die"] ?? 8;
 $hp = $hit_die + modifier($abilities['con'])*(int)$level + ($hit_die*($level-1));
 
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// Finalize Character
 $character = [
     "name" => $selectedName,
     "class" => $selectedClass,
     "subclass" => $selectedSubclass,
+    "background" => $selectedBackground,
     "level" => $level,
     "race" => $selectedRace,
     "abilities" => $abilities,

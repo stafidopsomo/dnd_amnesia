@@ -48,7 +48,8 @@ function handlePerception() {
     }
     updateKnownInfoPanel();
 
-  } else {
+  } 
+  else {
     output += "Fail! You don't notice anything special.\n";
   }
 

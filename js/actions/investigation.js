@@ -11,7 +11,6 @@ function handleInvestigation() {
   const resultDiv = document.getElementById('actionResults');
 
   // Check turn-based restrictions
-  
   if (actionUsed) {
     resultDiv.innerText += "You have already taken your action this turn!\n";
     return;
@@ -67,7 +66,8 @@ function handleInvestigation() {
 
     updateKnownInfoPanel();
 
-  } else {
+  } 
+  else {
     output += "Fail! You don't notice anything special.\n";
   }
 
