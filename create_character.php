@@ -8,33 +8,37 @@ header('Content-Type: application/json; charset=utf-8');
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
-// Load JSONs
-$barbarian_data = read_json("../all_classes/barbarian.json");
-$paladin_data = read_json("../all_classes/paladin.json");
-$rogue_data = read_json("../all_classes/rogue.json");
-
-$classes = [
-    "Barbarian" => $barbarian_data,
-    "Paladin" => $paladin_data,
-    "Rogue" => $rogue_data
-];
+// Generate race
 
 $races = ["Human", "Elf", "Dwarf", "Halfling"];
+$selectedRace = $races[array_rand($races)];
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// Generate class/subclass
+$classFiles = [
+    "Barbarian" => "../all_classes/barbarian.json",
+    "Paladin" => "../all_classes/paladin.json",
+    "Rogue" => "../all_classes/rogue.json"
+];
 
-// ------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------
-// Generate class/subclass/race/background/scores
-$classKeys = array_keys($classes);
+$classKeys = array_keys($classFiles);
 $selectedClass = $classKeys[array_rand($classKeys)];
-$classData = $classes[$selectedClass];
-
+$classData = read_json($classFiles[$selectedClass]);
 $selectedSubclass = $classData["subclasses"][array_rand($classData["subclasses"])] ?? "";
 $level = rand(5, 6);
-$selectedRace = $races[array_rand($races)];
+
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// Generate background+name
 $selectedBackground = 'Sage';
 $selectedName = assignName($selectedRace, $selectedClass, $selectedSubclass, $selectedBackground);
 
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
+// Generate scores
 $abilities = [
     "str" => random_ability_score(),
     "dex" => random_ability_score(),
