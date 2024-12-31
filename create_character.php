@@ -33,8 +33,10 @@ $level = rand(5, 6);
 // ------------------------------------------------------------------------------
 // Generate background+name
 $selectedBackground = 'Sage';
-//$selectedName = assignName($selectedRace, $selectedClass, $selectedSubclass, $selectedBackground);
-$selectedName = 'Nogu Love';
+$classData = read_json($classFiles[$selectedClass]);
+$selectedSubclass = $classData["subclasses"][array_rand($classData["subclasses"])]["name"] ?? "";
+$selectedName = assignName($selectedRace, $selectedClass, $selectedSubclass, $selectedBackground);
+//$selectedName = 'Nogu Love';
 
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
