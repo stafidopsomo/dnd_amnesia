@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Console logs with requested info
   console.log("Class: " + characterData.class);
   console.log("Subclass: " + characterData.subclass);
-  console.log("Str Score: " + characterData.abilities.str + ", Dex Score: " + characterData.abilities.dex);
   const featureNames = characterData.features_and_traits.map(f => f.name);
   console.log("Features and Traits: " + featureNames.join(", "));
   const hasExtraAttack = characterData.features_and_traits.some(f => f.name.toLowerCase() === "extra attack");

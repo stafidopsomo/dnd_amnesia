@@ -19,6 +19,9 @@
         {"name": "Shortsword", "die": "d6"},
         {"name": "Dagger", "die": "d4"}
     ],
+    "nonProficientWeapons": [
+        { "name": "Non proficient Kavli", "die": "d8" }
+      ],
     "armor": {
         "name": "Leather Armor",
         "description": "AC = 11 + Dex modifier"

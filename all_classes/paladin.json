@@ -19,6 +19,9 @@
         {"name": "Longsword", "die": "d8"},
         {"name": "Javelin", "die": "d6"}
     ],
+    "nonProficientWeapons": [
+      { "name": "Non proficient Kavli", "die": "d8" }
+    ],
     "armor": {
         "name": "Chain Mail",
         "description": "AC = 16"

@@ -51,7 +51,7 @@ $abilities = [
     "cha" => random_ability_score()
 ];
 
-$proficiency_bonus = ($level < 5) ? 2 : 3;
+$proficiency_bonus = ($level < 5) ? 2 : 3; //change if level more than 6
 $basic_score_map = [
     "Barbarian" => "str",
     "Bard" => (rand(0, 1) === 0) ? "cha" : "dex",
@@ -66,20 +66,15 @@ $basic_score_map = [
     "Warlock" => "cha",
     "Wizard" => "int"
 ];
-$basic_score = $basic_score_map[$selectedClass] ?? "str";
+$basic_score = $basic_score_map[$selectedClass] ?? "str"; 
 
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------
 // Weapons
 $selectedWeapons = $classData["weapons"] ?? [];
-if ($selectedClass == 'Wizard' || $selectedClass == 'Barbarian') {
-    $nonProficientWeapons = [
-        ["name" => "strapon", "die" => "d12"]
-    ];
-} else {
-    $nonProficientWeapons = [];
-}
+$nonProficientWeapons = $classData["nonProficientWeapons"] ?? [];
+
 
 // ------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------

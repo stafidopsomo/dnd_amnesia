@@ -31,7 +31,6 @@ function handlePerception() {
     characterData.weapons.forEach(wpn => {
       output += `- ${wpn.name} (${wpn.die} damage die)\n`;
     });
-
     const strScore = characterData.abilities.str;
     let strLevel = (strScore < 10) ? "low" : (strScore <= 14) ? "mid" : "high";
     output += `Your Strength score seems ${strLevel}.\n`;

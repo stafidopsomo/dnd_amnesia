@@ -19,6 +19,10 @@
       { "name": "Greataxe", "die": "d12" },
       { "name": "Handaxe", "die": "d6" }
     ],
+    "nonProficientWeapons": [
+      { "name": "Longbow", "die": "d8" },
+      { "name": "Shortbow", "die": "d6" }
+    ],
     "armor": {
       "name": "Unarmored Defense",
       "description": "AC = 10 + Dex modifier + Con modifier"
@@ -26,7 +30,7 @@
     "features": [
       {
         "name": "Rage",
-        "description": "7Advantage on STR checks, +2 damage, resistance to physical dmg.",
+        "description": "Advantage on STR checks, +2 damage, resistance to physical dmg.",
         "level": 1
       },
       {
