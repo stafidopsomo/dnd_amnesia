@@ -115,7 +115,7 @@ function handleGuess() {
   // ----------------------------------------------------------------------------------------
   // Retrieve Actual Values
   const actualClass = characterData.class; 
-  const actualSubclass = characterData.subclass.name; 
+  const actualSubclass = characterData.subclass; 
   const actualStrMod = abilityScoreModifier(characterData.abilities.str);
   const actualDexMod = abilityScoreModifier(characterData.abilities.dex);
   const actualConMod = abilityScoreModifier(characterData.abilities.con);
@@ -131,7 +131,7 @@ function handleGuess() {
   console.log('Handle guess:');
   console.log('           Actual\t\t\t| Guess');
   console.log('Class:     '+classGuess+'\t\t\t| '+characterData.class);
-  console.log('Subclass:  '+subclassGuess+'\t| '+characterData.subclass.name);
+  console.log('Subclass:  '+subclassGuess+'\t| '+characterData.subclass);
   console.log('Str:       '+strModGuess+'\t\t\t| '+actualStrMod);
   console.log('Init:      '+actualInitiative+'\t\t\t| '+initiativeGuess);
 
@@ -148,38 +148,35 @@ function handleGuess() {
   guessLimit++;
 
   // If all correct, alert congratulations
+  // If incorrect, append a new line in guessResults
+  const guessResultsDiv = document.getElementById('guessResults');
+  if (guessResultsDiv.querySelector('em')) {
+    guessResultsDiv.innerHTML = ''; // remove 'No guesses yet'
+  }
+  let classResultSpan = classCorrect ? 
+    `<span class="correct">${classGuess}</span>` : 
+    `<span class="incorrect">${classGuess}</span>`;
+  let subclassResultSpan = subclassCorrect ? 
+    `<span class="correct">${subclassGuess}</span>` : 
+    `<span class="incorrect">${subclassGuess}</span>`;
+  let strModResultSpan = scoreCheckSpanCreate(strModGuess, actualStrMod);
+  let dexModResultSpan = scoreCheckSpanCreate(dexModGuess, actualDexMod);
+  let conModResultSpan = scoreCheckSpanCreate(conModGuess, actualConMod);
+  let intModResultSpan = scoreCheckSpanCreate(intModGuess, actualIntMod);
+  let wisModResultSpan = scoreCheckSpanCreate(wisModGuess, actualWisMod);
+  let chaModResultSpan = scoreCheckSpanCreate(chaModGuess, actualChaMod);
+  const testLine = `<p>${classResultSpan} | ${subclassResultSpan} | 
+      Str: ${strModResultSpan} </p>`;
+      //Dex: ${dexModResultSpan} 
+      //Con: ${conModResultSpan} 
+      //Int: ${intModResultSpan} 
+      //Wis: ${wisModResultSpan} 
+      //Cha: ${chaModResultSpan} </p>`;
+  //const guessLine = `<p>Class Guess: ${classResultSpan} | Str Mod Guess: ${strModResultSpan}</p>`;
+  guessResultsDiv.innerHTML += testLine;
+  document.getElementById('guessesCount').innerHTML = `<p><em>Number of guesses: ${guessLimit}</em></p>`;
   if (classCorrect && subclassCorrect && strModCorrect) {
     showSiteStyledPopup("Congratulations!", "You recovered your memory!");
-  } else {
-    // If incorrect, append a new line in guessResults
-    const guessResultsDiv = document.getElementById('guessResults');
-    if (guessResultsDiv.querySelector('em')) {
-      guessResultsDiv.innerHTML = ''; // remove 'No guesses yet'
-    }
-
-    let classResultSpan = classCorrect ? 
-      `<span class="correct">${classGuess}</span>` : 
-      `<span class="incorrect">${classGuess}</span>`;
-    let subclassResultSpan = subclassCorrect ? 
-      `<span class="correct">${subclassGuess}</span>` : 
-      `<span class="incorrect">${subclassGuess}</span>`;
-
-    let strModResultSpan = scoreCheckSpanCreate(strModGuess, actualStrMod);
-    let dexModResultSpan = scoreCheckSpanCreate(dexModGuess, actualDexMod);
-    let conModResultSpan = scoreCheckSpanCreate(conModGuess, actualConMod);
-    let intModResultSpan = scoreCheckSpanCreate(intModGuess, actualIntMod);
-    let wisModResultSpan = scoreCheckSpanCreate(wisModGuess, actualWisMod);
-    let chaModResultSpan = scoreCheckSpanCreate(chaModGuess, actualChaMod);
-    const testLine = `<p>${classResultSpan} | ${subclassResultSpan} | 
-        Str: ${strModResultSpan} </p>`;
-        //Dex: ${dexModResultSpan} 
-        //Con: ${conModResultSpan} 
-        //Int: ${intModResultSpan} 
-        //Wis: ${wisModResultSpan} 
-        //Cha: ${chaModResultSpan} </p>`;
-    //const guessLine = `<p>Class Guess: ${classResultSpan} | Str Mod Guess: ${strModResultSpan}</p>`;
-    guessResultsDiv.innerHTML += testLine;
-    document.getElementById('guessesCount').innerHTML = `<p><em>Number of guesses: ${guessLimit}</em></p>`;
   }
 
 }

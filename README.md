@@ -36,6 +36,8 @@ clues:
 
 
 TODOs:
+ - animation me zari typou Baldur's Gate
+ - Diaforetika mhnymata gia ultra fail/fail/success/ultra success per action
  - new actions: (frontend) 
         insight (self): Px me successful insight mathaineis oti exeis reckless attack
         cast a spell: Ksekleidwnetai...
