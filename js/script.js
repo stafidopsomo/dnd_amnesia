@@ -147,6 +147,34 @@ function handleGuess() {
   // Use up one guess attempt
   guessLimit++;
 
+  // color guesses 
+  const classSelect = document.getElementById('classGuess');
+  const subclassSelect = document.getElementById('subclass');
+
+  const classOptions = classSelect.options;
+  const classSelectedOption = classOptions[classSelect.selectedIndex];
+  if (classCorrect){
+    classSelectedOption.classList.add('green-highlight');
+    classSelectedOption.classList.remove('no-highlight');
+  } else {
+    classSelectedOption.classList.add('red-highlight');
+    classSelectedOption.classList.remove('no-highlight');
+  }
+  if (subclassSelect){
+    const subclassOptions = subclassSelect.options;
+    const subclassSelectedOption = subclassOptions[subclassSelect.selectedIndex];
+    if (subclassCorrect){
+      subclassSelectedOption.classList.add('green-highlight');
+      subclassSelectedOption.classList.remove('no-highlight');
+    } else {
+      subclassSelectedOption.classList.add('red-highlight');
+      subclassSelectedOption.classList.remove('no-highlight');
+    }  
+  }
+  
+  updateSubclassOptions();
+  
+
   // If all correct, alert congratulations
   // If incorrect, append a new line in guessResults
   const guessResultsDiv = document.getElementById('guessResults');

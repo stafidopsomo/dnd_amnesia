@@ -3,19 +3,21 @@
 /*@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');*/
 
 /* If you want only Cinzel, remove the Roboto import from index.html. */
+
 body {
   margin: 0;
   padding: 0;
-  background-color: #4d0000;
-  /* If using Cinzel:
-  font-family: 'Cinzel', serif;
-  */
-  /* If using Roboto from the HTML:
-  font-family: 'Roboto', serif;
-  */
-  font-family: 'Cinzel', serif; /* Example: using Cinzel */
+  font-family: 'Cinzel',
+  serif; /* Example: using Cinzel */
   color: #f5f5f5;
   min-height: 100vh;
+  font-family: 'Georgia',
+  serif;
+  background-color: #f8f1e1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 140vh;
 }
 
 label {
@@ -35,8 +37,8 @@ span {
   align-items: flex-start;
   min-height: 100vh;
   /* Increase this margin to push everything lower */
-  margin-top: 100px;
-  padding-top: 40px;
+  margin-top: 10px;
+  padding-top: 4px;
 }
 
 /* Main Container */
@@ -46,14 +48,14 @@ span {
   background: rgba(0, 0, 0, 0.7);
   border: 2px solid #d4af37;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   padding: 30px;
   margin: 0 20px 40px;
   transition: box-shadow 0.3s;
 }
 
 .main-container:hover {
-  box-shadow: 0 6px 25px rgba(0,0,0,0.7);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);
 }
 
 /* Header */
@@ -112,9 +114,11 @@ button {
   border: 2px solid #d4af37;
   padding: 10px 20px;
   /* If using Cinzel: */
-  font-family: 'Cinzel', serif;
+  font-family: 'Cinzel',
+  serif;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s,
+  color 0.3s;
   font-size: 1rem;
   border-radius: 6px;
 }
@@ -127,7 +131,7 @@ button:hover {
 /* Action Results Scroll Box */
 .results-section #actionResults {
   /* This ensures scrolling instead of endless expansion */
-  max-height: 300px;  /* Adjust as desired */
+  max-height: 300px; /* Adjust as desired */
   overflow-y: auto;
   border: 1px solid #d4af37;
   border-radius: 6px;
@@ -162,7 +166,7 @@ footer {
   border: 2px solid #d4af37;
   margin: 0 20px 40px 0;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .info-panel h2 {
@@ -196,9 +200,9 @@ footer {
   font-weight: 500;
 }
 
-.guess-section select, 
+.guess-section select,
 .guess-section input {
-  width: 100%;
+  width: 100% ;
   padding: 8px;
   border: 2px solid #d4af37;
   border-radius: 6px;
@@ -218,8 +222,9 @@ footer {
   background-color: #4b2e2e;
   color: #f5f5f5;
   cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  transition: background 0.3s,
+  transform 0.2s;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
 }
 
 .guess-btn:hover {
@@ -249,4 +254,139 @@ footer {
 .incorrect {
   color: #ff6565;
   font-weight: 700;
+}
+
+.character-sheet {
+  width: 600px;
+  background-color: #fff8dc;
+  border: 3px solid #8b4513;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+.section {
+  margin-bottom: 20px;
+  border: 2px solid #8b4513;
+  border-radius: 6px;
+  padding: 10px;
+}
+.section h2, .section h3 {
+  margin: 0;
+  text-align: center;
+  color: #8b4513;
+}
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+}
+.info-row div {
+  text-align: center;
+  flex: 1;
+  padding: 6px 12px;
+  color: #8b4513;
+}
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+.stat {
+  text-align: center;
+}
+.stat-name {
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #8b4513;
+}
+.stat-mod {
+  font-size: 0.8rem;
+  margin-top: 4px;
+  color: #8b4513;
+}
+.features {
+  padding-top: 10px;
+}
+input[type = "number"]{
+  width: 60px;
+  padding: 4px;
+  text-align: center;
+  border: 1px solid #8b4513;
+  border-radius: 4px;
+  color: #8b4513;
+}
+select {
+  padding: 4px;
+  border: 1px solid #8b4513;
+  border-radius: 4px;
+  color: #8b4513;
+}
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: white;
+  background-color: #8b4513;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #a0522d;
+}
+.special-input {
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.special-input input {
+  position: absolute;
+  top: 50% ;
+  left: 50% ;
+  transform: translate(-50% , -50% );
+  width: 50px;
+  height: 30px;
+  font-size: 1rem;
+  text-align: center;
+  background: none;
+  border: none;
+  outline: none;
+  color: #8b4513;
+}
+.heart {
+  width: 80px;
+  height: 80px;
+  background: #ff6b6b;
+  clip-path: polygon(50% 0% , 100% 35% , 75% 100% , 50% 85% , 25% 100% , 0% 35% );
+}
+.shield {
+  width: 80px;
+  height: 80px;
+  background: #add8e6;
+  clip-path: polygon(50% 0% , 90% 15% , 90% 60% , 50% 100% , 10% 60% , 10% 15% );
+}
+.table {
+  display: flex;
+  justify-content: space-between;
+  border-collapse: collapse;
+}
+.table div {
+  flex: 1;
+  text-align: center;
+}
+.proficiency-checkbox {
+  margin-top: 4px;
+}
+.green-highlight {
+  background-color: green !important;
+  color: white !important;
+}
+.red-highlight {
+  background-color: rgb(128, 0, 6) !important;
+  color: white !important;
+}
+.no-highlight {
+  background-color: rgb(255, 255, 255) !important;
+  color: rgb(0, 0, 0) !important;
 }
