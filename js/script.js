@@ -1,72 +1,3 @@
-let characterData = null;
-let hasAttackedThisTurn = false;
-
-let turnNumber = 1;
-let guessLimit = 0;
-let moveUsed = false;
-let actionUsed = false; // for either attack or perception in this turn
-
-document.addEventListener("DOMContentLoaded", async () => {
-  // Fetch character data
-  //await new Promise(r => setTimeout(r, 5000));
-  characterData = await fetchCharacterData();
-  console.log("Character data:", characterData);
-  //await new Promise(r => setTimeout(r, 5000));
-
-  console.log(characterData);
-  // Console logs with requested info
-  console.log("Class: " + characterData.class);
-  console.log("Subclass: " + characterData.subclass);
-  const featureNames = characterData.features_and_traits.map(f => f.name);
-  console.log("Features and Traits: " + featureNames.join(", "));
-  const hasExtraAttack = characterData.features_and_traits.some(f => f.name.toLowerCase() === "extra attack");
-  console.log("Has extra attack feature: " + hasExtraAttack);
-
-  // Populate basic info
-  document.getElementById('charName').innerText = characterData.name;
-  document.getElementById('charRace').innerText = characterData.race;
-
-  // Populate weapon dropdown
-  const weaponSelect = document.getElementById('weaponSelect');
-  characterData.weapons.forEach((weapon) => {
-    const option = document.createElement('option');
-    option.value = weapon.name;
-    option.textContent = weapon.name;
-    weaponSelect.appendChild(option);
-  });
-  characterData.nonProficientWeapons.forEach((weapon) => {
-    const option = document.createElement('option');
-    option.value = weapon.name;
-    option.textContent = weapon.name;
-    weaponSelect.appendChild(option);
-  });
-
-  // Event listeners for actions
-  document.getElementById('moveBtn').addEventListener('click', handleMove);
-  document.getElementById('perceptionBtn').addEventListener('click', handlePerception);
-  document.getElementById('investigationBtn').addEventListener('click', handleInvestigation);
-  document.getElementById('attackBtn').addEventListener('click', handleAttack);
-
-  // Guess and End Turn events
-  document.getElementById('guessBtn').addEventListener('click', handleGuess);
-  document.getElementById('endTurnBtn').addEventListener('click', handleEndTurn);
-});
-
-async function fetchCharacterData() {
-  try {
-    console.log("Fetching character data...");
-    const response = await fetch('create_character.php');
-    if (!response.ok) {
-      throw new Error(`HTTP error: ${response.status}`);
-    }
-    return response.json();
-  } catch (error) {
-    console.error("Error fetching character data:", error);
-  }
-}
-
-
-
 // GUESSING LOGIC
 function handleGuess() {
 
@@ -74,8 +5,11 @@ function handleGuess() {
   // ----------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------
   // Retrieve Guesses
-  const classGuess = document.getElementById('classGuess').value;
-  const subclassGuess = document.getElementById('subclass').value;
+  const classSubclassGuessSelectElement = document.getElementById('classSubclassGuess');
+  const selectedOption = classSubclassGuessSelectElement.options[classSubclassGuessSelectElement.selectedIndex];
+
+  const classGuess = selectedOption.dataset.className;
+  const subclassGuess = selectedOption.dataset.subclassName;
   const strScoreGuess = document.getElementById('str-score');
   const dexScoreGuess = document.getElementById('dex-score');
   const conScoreGuess = document.getElementById('con-score');
@@ -129,11 +63,11 @@ function handleGuess() {
   // ----------------------------------------------------------------------------------------
   // Comparing Guess with Actual
   console.log('Handle guess:');
-  console.log('           Actual\t\t\t| Guess');
+  console.log('           Guess\t\t\t| Actual');
   console.log('Class:     '+classGuess+'\t\t\t| '+characterData.class);
   console.log('Subclass:  '+subclassGuess+'\t| '+characterData.subclass);
   console.log('Str:       '+strModGuess+'\t\t\t| '+actualStrMod);
-  console.log('Init:      '+actualInitiative+'\t\t\t| '+initiativeGuess);
+  console.log('Init:      '+initiativeGuess+'\t\t\t| '+actualInitiative);
 
   let classCorrect = (classGuess === actualClass);
   let subclassCorrect = (subclassGuess === actualSubclass);
@@ -147,36 +81,35 @@ function handleGuess() {
   // Use up one guess attempt
   guessLimit++;
 
-  // color guesses 
-  const classSelect = document.getElementById('classGuess');
-  const subclassSelect = document.getElementById('subclass');
+  // ----------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------------
+  // Coloring
+  // Color Class and Subclass
+  let classColorValue = (classCorrect) ? 1 : -1;
+  let subclassColorValue = (subclassCorrect) ? 1 : -1;
 
-  const classOptions = classSelect.options;
-  const classSelectedOption = classOptions[classSelect.selectedIndex];
-  if (classCorrect){
-    classSelectedOption.classList.add('green-highlight');
-    classSelectedOption.classList.remove('no-highlight');
-  } else {
-    classSelectedOption.classList.add('red-highlight');
-    classSelectedOption.classList.remove('no-highlight');
-  }
-  if (subclassSelect){
-    const subclassOptions = subclassSelect.options;
-    const subclassSelectedOption = subclassOptions[subclassSelect.selectedIndex];
-    if (subclassCorrect){
-      subclassSelectedOption.classList.add('green-highlight');
-      subclassSelectedOption.classList.remove('no-highlight');
-    } else {
-      subclassSelectedOption.classList.add('red-highlight');
-      subclassSelectedOption.classList.remove('no-highlight');
-    }  
-  }
-  
-  updateSubclassOptions();
-  
+  let classElement;
+  Array.from(classSubclassGuessSelectElement.options).forEach(option => {
+    if (option.disabled && option.textContent === classGuess) {
+      classElement = option;
+    }
+  });
 
-  // If all correct, alert congratulations
-  // If incorrect, append a new line in guessResults
+  const daaaaa = document.getElementById("classSubclassGuess");
+  daaaaa.classList.remove('red-highlight');
+  daaaaa.classList.remove('no-highlight');
+  (subclassCorrect) ? daaaaa.classList.add("green-highlight") : daaaaa.classList.add("red-highlight");
+  classGuessHighlight[classGuess] = classColorValue;
+  colorSelection(classElement, classColorValue);
+  
+  subclassGuessHighlight[subclassGuess] = subclassColorValue;
+  colorSelection(selectedOption, subclassColorValue);  
+
+  // ----------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------------
+  // Create new Guess-Line
   const guessResultsDiv = document.getElementById('guessResults');
   if (guessResultsDiv.querySelector('em')) {
     guessResultsDiv.innerHTML = ''; // remove 'No guesses yet'
@@ -203,6 +136,13 @@ function handleGuess() {
   //const guessLine = `<p>Class Guess: ${classResultSpan} | Str Mod Guess: ${strModResultSpan}</p>`;
   guessResultsDiv.innerHTML += testLine;
   document.getElementById('guessesCount').innerHTML = `<p><em>Number of guesses: ${guessLimit}</em></p>`;
+
+
+
+  // ----------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------------
+  // Alert if everything is correct
   if (classCorrect && subclassCorrect && strModCorrect) {
     showSiteStyledPopup("Congratulations!", "You recovered your memory!");
   }
